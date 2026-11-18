@@ -11,7 +11,7 @@ import {
   projectArchiveFiles, projectFileRole, putProjectFile,
 } from "./project-files";
 import { PROJECT_TYPE_LABELS } from "./project-context";
-import { extractStakeoutProposal, stakeoutObjectsFromProposal, type StakeoutImportPayload } from "./processing-api";
+import { extractStakeoutProposal, isStakeoutPdf, MAX_DESKTOP_PDF_BYTES, stakeoutObjectsFromProposal, usesDesktopPdfWorker, type StakeoutImportPayload } from "./processing-api";
 import { WORKSPACE_SECTIONS, WORKSPACE_SECTION_LABELS, adjacentWorkspaceSection, workspaceSectionMessage, type WorkspaceSection } from "./workspace-section";
 import type { AppTheme } from "./app-theme";
 import { findProject, migrateProject, saveProject } from "./project-repository";
@@ -147,7 +147,7 @@ export function ProjectWorkspace({ theme, onThemeChange }: ProjectWorkspaceProps
   };
 
   const processStakeout = async (file: LocalProjectFile) => {
-    if (!project || busy || project.project_type !== "civil" || (localOnly && !isStakeoutCsv(file))) return;
+    if (!project || busy || project.project_type !== "civil" || (!isStakeoutCsv(file) && (!isStakeoutPdf(file) || (localOnly && !usesDesktopPdfWorker())))) return;
     setBusy(true);
     setProcessingFile(file.id);
     setProposal(null);
@@ -247,9 +247,10 @@ function FilesSection({ project, busy, dragging, pendingDelete, processingFile, 
       <div className="v2-file-list__items" role="list">
       {project.files.map((file) => {
         const importedCount = stakeoutPoints.filter((point) => point.provenance.source_document_sha256 === file.sha256).length;
-        const isStakeoutPdf = !localOnly && project.project_type === "civil" && (file.media_type === "application/pdf" || file.name.toLocaleLowerCase("en-US").endsWith(".pdf"));
-        const isPointSource = isStakeoutPdf || (project.project_type === "civil" && isStakeoutCsv(file));
-        const maxBytes = isStakeoutCsv(file) ? MAX_STAKEOUT_CSV_BYTES : MAX_PROCESSING_BYTES;
+        const desktop = usesDesktopPdfWorker();
+        const csv = isStakeoutCsv(file);
+        const isPointSource = project.project_type === "civil" && (csv || ((!localOnly || desktop) && isStakeoutPdf(file)));
+        const maxBytes = csv ? MAX_STAKEOUT_CSV_BYTES : desktop ? MAX_DESKTOP_PDF_BYTES : MAX_PROCESSING_BYTES;
         const canExtract = isPointSource && file.size <= maxBytes;
         return <article className="v2-file-row" role="listitem" key={file.id}><div className="v2-file-row__badge">{file.name.split(".").pop()?.slice(0, 4).toUpperCase() || "FILE"}</div><div className="v2-file-row__name"><strong title={file.name}>{file.name}</strong><span>{roleLabel(file.role)} · {formatBytes(file.size)}{importedCount ? ` · ${importedCount} bodů` : ""}{isPointSource && !canExtract ? ` · zpracování do ${formatBytes(maxBytes)}` : ""}</span></div><div className="v2-file-row__actions">{isPointSource ? <button className="dm-btn dm-btn--primary" type="button" disabled={busy || !canExtract} onClick={() => void onProcess(file)}>{processingFile === file.id ? "Zpracovávám…" : importedCount ? "Vytěžit znovu" : "Vytěžit"}</button> : null}<button className="dm-btn dm-btn--ghost" type="button" disabled={busy} onClick={() => void onDownload(file)}>Stáhnout</button>{project.status === "active" ? <button className="dm-btn dm-btn--ghost v2-danger" type="button" disabled={busy} onClick={() => void onRemove(file)}>{pendingDelete === file.id ? "Potvrdit" : "Odebrat"}</button> : null}</div></article>;
       })}

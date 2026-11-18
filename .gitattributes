@@ -1,0 +1,2 @@
+fixtures/stakeout/expected.csv -text whitespace=cr-at-eol
+fixtures/stakeout/synthetic.pdf binary
