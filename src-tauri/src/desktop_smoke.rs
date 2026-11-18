@@ -24,7 +24,7 @@ pub fn on_page_load<R: Runtime>(webview: &Webview<R>, payload: &PageLoadPayload<
         .find(|(key, _)| key == "stakeoutSmokeResult")
     {
         if result == "ok" {
-            println!("PDF → V2 preview → confirm → retry → CSV: 3 exact synthetic points");
+            println!("PDF -> V2 preview -> confirm -> retry -> CSV: 3 exact synthetic points");
         } else {
             eprintln!("PDF to CSV smoke failed: {result}");
         }

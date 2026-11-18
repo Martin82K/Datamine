@@ -49,11 +49,12 @@ jobs:
           python-version: '3.11'
           cache: pip
           cache-dependency-path: worker/requirements.lock
-      - name: Test and package the Python worker
-        run: |
-          python -m pip install --require-hashes -r worker/requirements.lock
-          python -m unittest discover -s worker
-          python scripts/build_stakeout_worker.py
+      - name: Install Python worker dependencies
+        run: python -m pip install --require-hashes -r worker/requirements.lock
+      - name: Test Python worker
+        run: python -m unittest discover -s worker
+      - name: Package Python worker
+        run: python scripts/build_stakeout_worker.py
       - name: Build desktop installer
         uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1
         with:
