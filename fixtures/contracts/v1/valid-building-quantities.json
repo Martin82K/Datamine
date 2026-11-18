@@ -1,0 +1,18 @@
+{
+  "schema_version": "datamine.building-quantities.v1",
+  "calculator_version": "building-quantities-v1",
+  "project_id": "project_demo",
+  "document_id": "document_plan",
+  "model_version_id": "version_building_fixture",
+  "model_revision": 0,
+  "model_content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "coordinate_space": "drawing_m",
+  "tolerance": {"linear_m": 0.000001, "area_m2": 0.000001, "volume_m3": 0.000001},
+  "units": {"length": "m", "area": "m2", "volume": "m3"},
+  "rows": [
+    {"object_id": "object_floor_01", "object_type": "building.floor", "length_m": null, "gross_area_m2": 20, "net_area_m2": 20, "volume_m3": 4, "source_algorithm_version": "building-contract-v1"},
+    {"object_id": "object_opening_01", "object_type": "building.opening", "length_m": null, "gross_area_m2": 2.1, "net_area_m2": 2.1, "volume_m3": 0, "source_algorithm_version": "building-contract-v1"},
+    {"object_id": "object_wall_01", "object_type": "building.wall", "length_m": 5, "gross_area_m2": 15, "net_area_m2": 12.9, "volume_m3": 4.5, "source_algorithm_version": "building-contract-v1"}
+  ],
+  "summary": {"objects_total": 3, "walls_total": 1, "openings_total": 1, "floors_total": 1, "length_m": 5, "gross_area_m2": 37.1, "net_area_m2": 35, "volume_m3": 8.5}
+}

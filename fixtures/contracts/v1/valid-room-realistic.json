@@ -1,0 +1,39 @@
+{
+  "schema_version": "datamine.room-object.v1",
+  "id": "object_room_101",
+  "type": "rooms.room",
+  "layer_id": "layer_rooms",
+  "geometry": {
+    "kind": "polygon",
+    "coordinate_space": "drawing_m",
+    "rings": [
+      [[0, 0], [4.2, 0], [4.2, 3.1], [0, 3.1]],
+      [[1.5, 1], [2.2, 1], [2.2, 1.6], [1.5, 1.6]]
+    ]
+  },
+  "properties": {
+    "schema_version": "datamine.room-properties.v1",
+    "number": "1.01",
+    "name": "Syntetická vstupní hala",
+    "floor_area_m2": 12.6,
+    "geometric_area_m2": 12.6,
+    "table_area_m2": 12.55,
+    "perimeter_m": 14.6,
+    "height_m": 3,
+    "floor_level_m": 0,
+    "included": true,
+    "quality": "ok",
+    "area_source": "ocr_table",
+    "shape_source": "measured",
+    "review_state": "confirmed"
+  },
+  "provenance": {
+    "source_document_id": "document_synthetic",
+    "source_document_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "source_job_id": "job_rooms_synthetic",
+    "source_kind": "automatic",
+    "algorithm_version": "rooms-synthetic-v1",
+    "confidence": 0.91,
+    "last_command_id": "command_confirm_101"
+  }
+}

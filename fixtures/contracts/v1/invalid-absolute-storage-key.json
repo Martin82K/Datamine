@@ -1,0 +1,11 @@
+{
+  "schema_version": "datamine.document.v1",
+  "id": "document_bad_path",
+  "project_id": "project_demo",
+  "role": "floor_plan",
+  "media_type": "application/pdf",
+  "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "size_bytes": 42,
+  "storage_key": "/etc/passwd",
+  "created_at": "2026-08-29T12:00:00Z"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": "datamine.cad-underlay-view.v1",
+  "source_format": "cad_pdf",
+  "source_document_id": "document_cad_pdf",
+  "source_document_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "etag_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "page_index": 0,
+  "page_width_pt": 100,
+  "page_height_pt": 100,
+  "source_crs": {
+    "kind": "epsg",
+    "epsg": 5514,
+    "axis_order": "east_north_up",
+    "horizontal_unit": "m",
+    "vertical_unit": "m",
+    "vertical_datum": "Bpv"
+  },
+  "pdf_to_survey_xy": [0.1, 0, 0, 0.1, 1000, 2000],
+  "survey_to_world_xy": [1, 0, 0, 1, -1000, -2000],
+  "survey_plane_elevation_m": 250,
+  "world_elevation_offset_m": -250,
+  "tolerance_m": 0.000001,
+  "control_points": [
+    {"document_pt": [0, 0], "survey_crs": [1000, 2000, 250], "world_m": [0, 0, 0]},
+    {"document_pt": [100, 0], "survey_crs": [1010, 2000, 250], "world_m": [10, 0, 0]},
+    {"document_pt": [100, 100], "survey_crs": [1010, 2010, 250], "world_m": [10, 10, 0]},
+    {"document_pt": [0, 100], "survey_crs": [1000, 2010, 250], "world_m": [0, 10, 0]}
+  ]
+}

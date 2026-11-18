@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.artifact.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "project_id",
+    "job_id",
+    "model_version_id",
+    "kind",
+    "media_type",
+    "storage_key",
+    "sha256",
+    "size_bytes",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.artifact.v1",
+      "type": "string"
+    },
+    "id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^artifact_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "job_id": {
+      "minLength": 5,
+      "maxLength": 72,
+      "pattern": "^job_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "model_version_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^version_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "kind": {
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-z][a-z0-9._-]+$",
+      "type": "string"
+    },
+    "media_type": {
+      "minLength": 3,
+      "maxLength": 100,
+      "type": "string"
+    },
+    "storage_key": {
+      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*\\\\)[A-Za-z0-9][A-Za-z0-9._/-]{0,511}$",
+      "maxLength": 512,
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "size_bytes": {
+      "minimum": 0,
+      "maximum": 10737418240,
+      "type": "integer"
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+      "maxLength": 40,
+      "type": "string"
+    }
+  }
+}

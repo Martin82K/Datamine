@@ -1,0 +1,20 @@
+{
+  "schema_version": "datamine.model-version-command-batch.v1",
+  "project_id": "project_demo",
+  "base_version_id": "version_demo_1",
+  "base_revision": 0,
+  "base_content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "commands": [
+    {
+      "id": "command_confirm_room_1",
+      "type": "rooms.properties.patch",
+      "object_id": "object_room_minimal",
+      "changes": {
+        "name": "Kancelář",
+        "height_m": 2.8,
+        "included": true,
+        "review_state": "confirmed"
+      }
+    }
+  ]
+}

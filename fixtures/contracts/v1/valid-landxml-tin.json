@@ -1,0 +1,40 @@
+{
+  "schema_version": "datamine.landxml-tin.v1",
+  "landxml_namespace": "http://www.landxml.org/schema/LandXML-1.2",
+  "source_document_id": "document_landxml_demo",
+  "source_document_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "surface": {
+    "schema_version": "datamine.tin-surface-object.v1",
+    "id": "object_tin_demo",
+    "type": "civil.tin_surface",
+    "layer_id": "layer_terrain",
+    "geometry": {
+      "kind": "indexed_tin",
+      "coordinate_space": "survey_crs",
+      "vertices": [[1000, 2000, 250], [1010, 2000, 251], [1010, 2010, 252], [1000, 2010, 251]],
+      "faces": [[0, 1, 2], [0, 2, 3]],
+      "bounds": {"min": [1000, 2000, 250], "max": [1010, 2010, 252]}
+    },
+    "properties": {
+      "schema_version": "datamine.tin-surface-properties.v1",
+      "name": "Syntetický terén",
+      "crs": {
+        "kind": "epsg",
+        "epsg": 5514,
+        "axis_order": "east_north_up",
+        "horizontal_unit": "m",
+        "vertical_unit": "m",
+        "vertical_datum": "Bpv"
+      },
+      "review_state": "unreviewed"
+    },
+    "provenance": {
+      "source_document_id": "document_landxml_demo",
+      "source_document_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "source_job_id": "job_landxml_demo",
+      "source_kind": "imported",
+      "algorithm_version": "landxml-tin-import-v1",
+      "confidence": 1
+    }
+  }
+}

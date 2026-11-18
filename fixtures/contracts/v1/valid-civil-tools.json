@@ -1,0 +1,11 @@
+{
+  "schema_version": "datamine.civil-tools.v1",
+  "axis_id": "object_axis_main",
+  "profile_id": "object_profile_main",
+  "section": [
+    {"offset_m": -1, "elevation_offset_m": 0},
+    {"offset_m": 1, "elevation_offset_m": 0}
+  ],
+  "sampling_spacing_m": 5,
+  "caps": false
+}

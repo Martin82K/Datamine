@@ -1,0 +1,33 @@
+{
+  "schema_version": "datamine.room-object.v1",
+  "id": "object_room_minimal",
+  "type": "rooms.room",
+  "layer_id": "layer_rooms",
+  "geometry": {
+    "kind": "polygon",
+    "coordinate_space": "drawing_m",
+    "rings": [[[0, 0], [1, 0], [0, 1]]]
+  },
+  "properties": {
+    "schema_version": "datamine.room-properties.v1",
+    "number": "A",
+    "name": null,
+    "floor_area_m2": 0.5,
+    "geometric_area_m2": 0.5,
+    "table_area_m2": null,
+    "perimeter_m": 3.414213562,
+    "height_m": 2.4,
+    "floor_level_m": 0,
+    "included": true,
+    "quality": "unverified",
+    "area_source": "geometry",
+    "shape_source": "measured",
+    "review_state": "unreviewed"
+  },
+  "provenance": {
+    "source_document_id": "document_synthetic",
+    "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_kind": "automatic",
+    "algorithm_version": "rooms-synthetic-v1"
+  }
+}

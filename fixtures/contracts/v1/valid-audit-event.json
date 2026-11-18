@@ -1,0 +1,17 @@
+{
+  "schema_version": "datamine.audit-event.v1",
+  "event_id": "event_abc",
+  "occurred_at": "2026-08-30T12:00:00.000Z",
+  "request_id": "request_abc",
+  "phase": "outcome",
+  "action": "document.upload",
+  "outcome": "succeeded",
+  "reason_code": "HTTP_201",
+  "actor_id": "actor_1",
+  "tenant_id": "tenant_company",
+  "project_id": "project_alpha",
+  "resource_kind": "document",
+  "resource_id": "document_abc",
+  "component": "api",
+  "redacted": true
+}

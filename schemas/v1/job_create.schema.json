@@ -1,0 +1,1246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.job-create.v1",
+  "anyOf": [
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "system.dummy",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "dummy-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "label"
+          ],
+          "properties": {
+            "label": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "civil.sweep.generate",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "civil-sweep-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "name",
+            "axis_id",
+            "profile_id",
+            "section",
+            "sampling_spacing_m",
+            "caps"
+          ],
+          "properties": {
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "axis_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "profile_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "section": {
+              "minItems": 2,
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "offset_m",
+                  "elevation_offset_m"
+                ],
+                "properties": {
+                  "offset_m": {
+                    "minimum": -1000,
+                    "maximum": 1000,
+                    "type": "number"
+                  },
+                  "elevation_offset_m": {
+                    "minimum": -1000,
+                    "maximum": 1000,
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "sampling_spacing_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "caps": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "stakeout.derive.point",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "stakeout-axis-profile-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "name",
+            "code",
+            "axis_id",
+            "profile_id",
+            "station_m",
+            "lateral_offset_m",
+            "elevation_offset_m",
+            "horizontal_accuracy_m",
+            "vertical_accuracy_m"
+          ],
+          "properties": {
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[^<>\\x00-\\x1F]+$",
+              "type": "string"
+            },
+            "code": {
+              "minLength": 1,
+              "maxLength": 50,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+              "type": "string"
+            },
+            "axis_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "profile_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "station_m": {
+              "minimum": -1000000,
+              "maximum": 11000000,
+              "type": "number"
+            },
+            "lateral_offset_m": {
+              "minimum": -10000,
+              "maximum": 10000,
+              "type": "number"
+            },
+            "elevation_offset_m": {
+              "minimum": -1000,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "horizontal_accuracy_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "vertical_accuracy_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "const": "document",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            }
+          }
+        },
+        "job_type": {
+          "const": "stakeout.import.pdf",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "stakeout-pdf-import-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "const": "document",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            }
+          }
+        },
+        "job_type": {
+          "const": "rooms.detect",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "rooms-v1-adapter",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "default_height_m",
+            "floor_level_m"
+          ],
+          "properties": {
+            "default_height_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "floor_level_m": {
+              "minimum": -1000,
+              "maximum": 10000,
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "sha256"
+          ],
+          "properties": {
+            "kind": {
+              "const": "document",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            }
+          }
+        },
+        "job_type": {
+          "const": "civil.import.landxml",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "landxml-tin-import-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "epsg",
+            "vertical_datum",
+            "surface_name"
+          ],
+          "properties": {
+            "epsg": {
+              "minimum": 1,
+              "maximum": 999999,
+              "type": "integer"
+            },
+            "vertical_datum": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "surface_name": {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "rooms.export.json",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "rooms-export-json-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "rooms.export.xlsx",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "rooms-export-xlsx-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "building.quantities.json",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "building-quantities-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "building.export.json",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "building-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "building.export.xlsx",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "building-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "building.export.dxf",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "building-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "civil.export.json",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "civil-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "civil.export.dxf",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "civil-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "civil.export.csv",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "civil-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "stakeout.export.json",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "stakeout-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    },
+    {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "project_id",
+        "input",
+        "job_type",
+        "algorithm_version",
+        "parameters"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.job-create.v1",
+          "type": "string"
+        },
+        "project_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^project_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "input": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "kind": {
+              "const": "model_version",
+              "type": "string"
+            },
+            "id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^version_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "revision": {
+              "minimum": 0,
+              "maximum": 2147483647,
+              "type": "integer"
+            }
+          }
+        },
+        "job_type": {
+          "const": "stakeout.export.csv",
+          "type": "string"
+        },
+        "algorithm_version": {
+          "const": "stakeout-export-v1",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "type": "object",
+          "properties": {}
+        }
+      }
+    }
+  ]
+}

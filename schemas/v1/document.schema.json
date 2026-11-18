@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.document.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "project_id",
+    "display_name",
+    "technical_name",
+    "role",
+    "media_type",
+    "sha256",
+    "size_bytes",
+    "storage_key",
+    "upload_state",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.document.v1",
+      "type": "string"
+    },
+    "id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^document_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "display_name": {
+      "minLength": 1,
+      "maxLength": 200,
+      "type": "string"
+    },
+    "technical_name": {
+      "minLength": 5,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*\\.(?:pdf|xml)$",
+      "type": "string"
+    },
+    "role": {
+      "anyOf": [
+        {
+          "const": "floor_plan",
+          "type": "string"
+        },
+        {
+          "const": "situation",
+          "type": "string"
+        },
+        {
+          "const": "landxml",
+          "type": "string"
+        },
+        {
+          "const": "stakeout",
+          "type": "string"
+        },
+        {
+          "const": "other",
+          "type": "string"
+        }
+      ]
+    },
+    "media_type": {
+      "minLength": 3,
+      "maxLength": 100,
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "size_bytes": {
+      "minimum": 1,
+      "maximum": 2147483648,
+      "type": "integer"
+    },
+    "storage_key": {
+      "pattern": "^(?!/)(?!.*\\.\\.)(?!.*\\\\)[A-Za-z0-9][A-Za-z0-9._/-]{0,511}$",
+      "maxLength": 512,
+      "type": "string"
+    },
+    "upload_state": {
+      "anyOf": [
+        {
+          "const": "quarantined",
+          "type": "string"
+        },
+        {
+          "const": "ready",
+          "type": "string"
+        },
+        {
+          "const": "rejected",
+          "type": "string"
+        }
+      ]
+    },
+    "created_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+      "maxLength": 40,
+      "type": "string"
+    }
+  }
+}

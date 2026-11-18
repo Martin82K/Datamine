@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "datamine",
+  "version": "0.1.0",
+  "description": "Designová mapa produktového jazyka Datamine Atelier.",
+  "principles": [
+    "Technická přesnost bez vizuálního šumu",
+    "Tmavé plátno nechává vyniknout výkres a data",
+    "Indigo značí hlavní akci, barevné akcenty pouze význam",
+    "Sklo a stíny vyjadřují hloubku, ne dekoraci",
+    "Pohyb potvrzuje stav a zachovává prostorovou kontinuitu"
+  ],
+  "themes": ["dark", "light", "system"],
+  "cssPrefix": "dm-",
+  "tokenPrefix": "--dm-",
+  "palette": {
+    "primary": "#607afb",
+    "primaryAction": "#5369dc",
+    "orange": "#ff8a33",
+    "amber": "#fbbf24",
+    "success": "#34d399",
+    "danger": "#f43f5e",
+    "info": "#38bdf8",
+    "violet": "#a78bfa",
+    "darkBackground": "#060a12",
+    "darkSurface": "#0e1521",
+    "lightBackground": "#eef2f7",
+    "lightSurface": "#ffffff"
+  },
+  "typography": {
+    "ui": "Roboto, Inter, system-ui, Segoe UI, sans-serif",
+    "display": "Instrument Serif, Georgia, serif",
+    "data": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+    "rules": [
+      "Ovládací prvky 12–13.5 px a váha 600",
+      "Sekční labely verzálkami s trackingem 0.12em",
+      "Číselná data používají tabular-nums a monospace",
+      "Nadpisy mají tracking -0.02em až -0.03em"
+    ]
+  },
+  "geometry": {
+    "baseSpacingPx": 4,
+    "controlRadiusPx": 11,
+    "panelRadiusPx": 14,
+    "cardRadiusPx": 18,
+    "pillRadius": "999px"
+  },
+  "motion": {
+    "durationsMs": {"instant": 120, "fast": 180, "base": 200, "slow": 300, "enter": 400},
+    "primaryEasing": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "patterns": {
+      "hoverLift": "translateY(-1px až -2px)",
+      "press": "scale(0.99)",
+      "enter": "opacity 0 + translateY(8px)",
+      "popover": "opacity 0 + translateY(-4px) + scale(0.98)"
+    },
+    "accessibility": "Všechny animace respektují prefers-reduced-motion a data-datamine-motion=off."
+  },
+  "elevation": ["flat", "raised", "glass", "floating", "modal"],
+  "components": [
+    "button",
+    "icon-button",
+    "chip",
+    "badge",
+    "field",
+    "input",
+    "select",
+    "textarea",
+    "panel",
+    "glass-card",
+    "segmented-control",
+    "toolbar",
+    "table",
+    "tooltip",
+    "toast",
+    "dialog",
+    "status",
+    "skeleton",
+    "empty-state"
+  ],
+  "states": ["default", "hover", "focus-visible", "active", "selected", "disabled", "loading", "invalid"],
+  "accessibility": {
+    "primaryActionContrastOnWhite": "4.75:1",
+    "note": "Brandová #607afb zůstává pro akcenty; tlačítko používá tmavší #5369dc pro WCAG AA běžného textu."
+  },
+  "iconContract": {
+    "format": "inline SVG",
+    "viewBox": "0 0 24 24",
+    "sizePx": 18,
+    "strokeWidth": 1.75,
+    "color": "currentColor",
+    "note": "Balíček nenačítá externí icon font ani síťové zdroje."
+  },
+  "security": {
+    "remoteAssets": false,
+    "runtimeDependencies": 0,
+    "htmlInjection": false,
+    "themeValuesAllowlist": ["dark", "light", "system"]
+  },
+  "sources": [
+    "assets/index.html — Datamine Atelier / hlavní aplikace",
+    "assets/landxml/viewer.html — kompaktní technický editor",
+    "release-v0.1.0-assets/projekt-pd-prehled-projektu.png — referenční render"
+  ]
+}

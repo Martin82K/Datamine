@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.geometry-stream-manifest.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "stream_id",
+    "project_id",
+    "source_version_id",
+    "source_revision",
+    "source_content_sha256",
+    "object_id",
+    "geometry_kind",
+    "coordinate_space",
+    "vertex_count",
+    "face_count",
+    "chunk_count",
+    "total_payload_bytes",
+    "geometry_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.geometry-stream-manifest.v1",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^stream_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_version_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^version_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_revision": {
+      "minimum": 0,
+      "maximum": 2147483647,
+      "type": "integer"
+    },
+    "source_content_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "object_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "geometry_kind": {
+      "const": "indexed_mesh",
+      "type": "string"
+    },
+    "coordinate_space": {
+      "const": "survey_crs",
+      "type": "string"
+    },
+    "vertex_count": {
+      "minimum": 4,
+      "maximum": 100000,
+      "type": "integer"
+    },
+    "face_count": {
+      "minimum": 2,
+      "maximum": 200000,
+      "type": "integer"
+    },
+    "chunk_count": {
+      "minimum": 1,
+      "maximum": 4096,
+      "type": "integer"
+    },
+    "total_payload_bytes": {
+      "minimum": 1,
+      "maximum": 67108864,
+      "type": "integer"
+    },
+    "geometry_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    }
+  }
+}

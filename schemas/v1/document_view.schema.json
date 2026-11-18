@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.document-view.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_document_id",
+    "source_document_sha256",
+    "page_index",
+    "page_width_pt",
+    "page_height_pt",
+    "page_rotation_deg",
+    "drawing_scale",
+    "source_coordinate_space",
+    "target_coordinate_space",
+    "pdf_to_drawing_m"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.document-view.v1",
+      "type": "string"
+    },
+    "source_document_id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^document_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_document_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "page_index": {
+      "minimum": 0,
+      "maximum": 9999,
+      "type": "integer"
+    },
+    "page_width_pt": {
+      "exclusiveMinimum": 0,
+      "maximum": 200000,
+      "type": "number"
+    },
+    "page_height_pt": {
+      "exclusiveMinimum": 0,
+      "maximum": 200000,
+      "type": "number"
+    },
+    "page_rotation_deg": {
+      "anyOf": [
+        {
+          "const": 0,
+          "type": "number"
+        },
+        {
+          "const": 90,
+          "type": "number"
+        },
+        {
+          "const": 180,
+          "type": "number"
+        },
+        {
+          "const": 270,
+          "type": "number"
+        }
+      ]
+    },
+    "drawing_scale": {
+      "minimum": 5,
+      "maximum": 1000,
+      "type": "number"
+    },
+    "source_coordinate_space": {
+      "const": "pdf_display_pt",
+      "type": "string"
+    },
+    "target_coordinate_space": {
+      "const": "drawing_m",
+      "type": "string"
+    },
+    "pdf_to_drawing_m": {
+      "type": "array",
+      "items": [
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        }
+      ],
+      "additionalItems": false,
+      "minItems": 6,
+      "maxItems": 6
+    }
+  }
+}

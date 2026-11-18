@@ -1,0 +1,3490 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.model-object.v1",
+  "anyOf": [
+    {
+      "$id": "datamine.room-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.room-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "rooms.room",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "rings"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polygon",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "anyOf": [
+                {
+                  "const": "drawing_m",
+                  "type": "string"
+                },
+                {
+                  "const": "world_m",
+                  "type": "string"
+                },
+                {
+                  "const": "survey_crs",
+                  "type": "string"
+                }
+              ]
+            },
+            "rings": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "minItems": 3,
+                "maxItems": 100000,
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "number",
+            "name",
+            "floor_area_m2",
+            "geometric_area_m2",
+            "table_area_m2",
+            "perimeter_m",
+            "height_m",
+            "floor_level_m",
+            "included",
+            "quality",
+            "area_source",
+            "shape_source",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.room-properties.v1",
+              "type": "string"
+            },
+            "number": {
+              "minLength": 1,
+              "maxLength": 50,
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "floor_area_m2": {
+              "minimum": 0,
+              "maximum": 10000000,
+              "type": "number"
+            },
+            "geometric_area_m2": {
+              "minimum": 0,
+              "maximum": 10000000,
+              "type": "number"
+            },
+            "table_area_m2": {
+              "anyOf": [
+                {
+                  "exclusiveMinimum": 0,
+                  "maximum": 10000000,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "perimeter_m": {
+              "minimum": 0,
+              "maximum": 1000000,
+              "type": "number"
+            },
+            "height_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "floor_level_m": {
+              "minimum": -1000,
+              "maximum": 10000,
+              "type": "number"
+            },
+            "included": {
+              "type": "boolean"
+            },
+            "quality": {
+              "anyOf": [
+                {
+                  "const": "ok",
+                  "type": "string"
+                },
+                {
+                  "const": "mismatch",
+                  "type": "string"
+                },
+                {
+                  "const": "leak",
+                  "type": "string"
+                },
+                {
+                  "const": "no_seed",
+                  "type": "string"
+                },
+                {
+                  "const": "unverified",
+                  "type": "string"
+                }
+              ]
+            },
+            "area_source": {
+              "anyOf": [
+                {
+                  "const": "geometry",
+                  "type": "string"
+                },
+                {
+                  "const": "ocr_table",
+                  "type": "string"
+                },
+                {
+                  "const": "estimate",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                }
+              ]
+            },
+            "shape_source": {
+              "anyOf": [
+                {
+                  "const": "measured",
+                  "type": "string"
+                },
+                {
+                  "const": "estimate",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                }
+              ]
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.wall-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.wall-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "building.wall",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "points"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polyline",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "anyOf": [
+                {
+                  "const": "drawing_m",
+                  "type": "string"
+                },
+                {
+                  "const": "world_m",
+                  "type": "string"
+                },
+                {
+                  "const": "survey_crs",
+                  "type": "string"
+                }
+              ]
+            },
+            "points": {
+              "minItems": 2,
+              "maxItems": 100000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "thickness_m",
+            "height_m",
+            "base_level_m",
+            "length_m",
+            "gross_side_area_m2",
+            "volume_m3",
+            "structural",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.wall-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "thickness_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 10,
+              "type": "number"
+            },
+            "height_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "base_level_m": {
+              "minimum": -1000,
+              "maximum": 10000,
+              "type": "number"
+            },
+            "length_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000,
+              "type": "number"
+            },
+            "gross_side_area_m2": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "volume_m3": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "structural": {
+              "type": "boolean"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.opening-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.opening-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "building.opening",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "points"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polyline",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "anyOf": [
+                {
+                  "const": "drawing_m",
+                  "type": "string"
+                },
+                {
+                  "const": "world_m",
+                  "type": "string"
+                },
+                {
+                  "const": "survey_crs",
+                  "type": "string"
+                }
+              ]
+            },
+            "points": {
+              "minItems": 2,
+              "maxItems": 100000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "host_wall_id",
+            "opening_type",
+            "width_m",
+            "height_m",
+            "sill_height_m",
+            "area_m2",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.opening-properties.v1",
+              "type": "string"
+            },
+            "host_wall_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "opening_type": {
+              "anyOf": [
+                {
+                  "const": "door",
+                  "type": "string"
+                },
+                {
+                  "const": "window",
+                  "type": "string"
+                },
+                {
+                  "const": "void",
+                  "type": "string"
+                }
+              ]
+            },
+            "width_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "height_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "sill_height_m": {
+              "minimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "area_m2": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000,
+              "type": "number"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.floor-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.floor-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "building.floor",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "rings"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polygon",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "anyOf": [
+                {
+                  "const": "drawing_m",
+                  "type": "string"
+                },
+                {
+                  "const": "world_m",
+                  "type": "string"
+                },
+                {
+                  "const": "survey_crs",
+                  "type": "string"
+                }
+              ]
+            },
+            "rings": {
+              "minItems": 1,
+              "maxItems": 128,
+              "type": "array",
+              "items": {
+                "minItems": 3,
+                "maxItems": 100000,
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "thickness_m",
+            "top_level_m",
+            "area_m2",
+            "volume_m3",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.floor-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "anyOf": [
+                {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "thickness_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 10,
+              "type": "number"
+            },
+            "top_level_m": {
+              "minimum": -1000,
+              "maximum": 10000,
+              "type": "number"
+            },
+            "area_m2": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "volume_m3": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.tin-surface-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.tin-surface-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.tin_surface",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "vertices",
+            "faces",
+            "bounds"
+          ],
+          "properties": {
+            "kind": {
+              "const": "indexed_tin",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "vertices": {
+              "minItems": 3,
+              "maxItems": 20000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "faces": {
+              "minItems": 1,
+              "maxItems": 40000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": 0,
+                    "maximum": 19999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 19999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 19999,
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "bounds": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "max": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "crs",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.tin-surface-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.civil-axis-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.civil-axis-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.axis",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "points"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polyline3d",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "points": {
+              "minItems": 2,
+              "maxItems": 20000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "crs",
+            "start_station_m",
+            "length_m",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.civil-axis-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "start_station_m": {
+              "minimum": -1000000,
+              "maximum": 1000000,
+              "type": "number"
+            },
+            "length_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000,
+              "type": "number"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.civil-profile-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.civil-profile-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.profile",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "points"
+          ],
+          "properties": {
+            "kind": {
+              "const": "polyline3d",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "points": {
+              "minItems": 2,
+              "maxItems": 20000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "axis_id",
+            "crs",
+            "samples",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.civil-profile-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "axis_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "samples": {
+              "minItems": 2,
+              "maxItems": 20000,
+              "type": "array",
+              "items": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "station_m",
+                  "elevation_m"
+                ],
+                "properties": {
+                  "station_m": {
+                    "minimum": -1000000,
+                    "maximum": 11000000,
+                    "type": "number"
+                  },
+                  "elevation_m": {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.civil-sweep-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.civil-sweep-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.sweep",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "vertices",
+            "faces",
+            "bounds"
+          ],
+          "properties": {
+            "kind": {
+              "const": "indexed_mesh",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "vertices": {
+              "minItems": 4,
+              "maxItems": 100000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "faces": {
+              "minItems": 2,
+              "maxItems": 200000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "bounds": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "max": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "axis_id",
+            "profile_id",
+            "crs",
+            "section",
+            "sampling_spacing_m",
+            "caps",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.civil-sweep-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "axis_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "profile_id": {
+              "minLength": 8,
+              "maxLength": 72,
+              "pattern": "^object_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "section": {
+              "minItems": 2,
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "offset_m",
+                  "elevation_offset_m"
+                ],
+                "properties": {
+                  "offset_m": {
+                    "minimum": -1000,
+                    "maximum": 1000,
+                    "type": "number"
+                  },
+                  "elevation_offset_m": {
+                    "minimum": -1000,
+                    "maximum": 1000,
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "sampling_spacing_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 1000,
+              "type": "number"
+            },
+            "caps": {
+              "type": "boolean"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.civil-material-layer-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.civil-material-layer-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.material_layer",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "vertices",
+            "faces",
+            "bounds"
+          ],
+          "properties": {
+            "kind": {
+              "const": "indexed_mesh",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "vertices": {
+              "minItems": 4,
+              "maxItems": 100000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000000,
+                    "maximum": 100000000,
+                    "type": "number"
+                  },
+                  {
+                    "minimum": -100000,
+                    "maximum": 100000,
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "faces": {
+              "minItems": 2,
+              "maxItems": 200000,
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  },
+                  {
+                    "minimum": 0,
+                    "maximum": 99999,
+                    "type": "integer"
+                  }
+                ],
+                "additionalItems": false,
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "bounds": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "max": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000000,
+                      "maximum": 100000000,
+                      "type": "number"
+                    },
+                    {
+                      "minimum": -100000,
+                      "maximum": 100000,
+                      "type": "number"
+                    }
+                  ],
+                  "additionalItems": false,
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "material_code",
+            "crs",
+            "derivation",
+            "volume_m3",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.civil-material-layer-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "type": "string"
+            },
+            "material_code": {
+              "minLength": 1,
+              "maxLength": 50,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "derivation": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "top_surface_id",
+                "thickness_m"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "constant_thickness",
+                  "type": "string"
+                },
+                "top_surface_id": {
+                  "minLength": 8,
+                  "maxLength": 72,
+                  "pattern": "^object_[A-Za-z0-9_-]+$",
+                  "type": "string"
+                },
+                "thickness_m": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 1000,
+                  "type": "number"
+                },
+                "top_offset_m": {
+                  "minimum": 0,
+                  "maximum": 1000,
+                  "type": "number"
+                },
+                "assembly": {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "order"
+                  ],
+                  "properties": {
+                    "id": {
+                      "minLength": 10,
+                      "maxLength": 72,
+                      "pattern": "^assembly_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "order": {
+                      "minimum": 0,
+                      "maximum": 19,
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "volume_m3": {
+              "exclusiveMinimum": 0,
+              "maximum": 10000000000000,
+              "type": "number"
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.civil-point-object.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.civil-point-object.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "civil.point",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "point"
+          ],
+          "properties": {
+            "kind": {
+              "const": "point3d",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "point": {
+              "type": "array",
+              "items": [
+                {
+                  "minimum": -100000000,
+                  "maximum": 100000000,
+                  "type": "number"
+                },
+                {
+                  "minimum": -100000000,
+                  "maximum": 100000000,
+                  "type": "number"
+                },
+                {
+                  "minimum": -100000,
+                  "maximum": 100000,
+                  "type": "number"
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "crs",
+            "derivation",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.civil-point-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[^<>\\x00-\\x1F]+$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "derivation": {
+              "anyOf": [
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "manual_coordinates",
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "start_point_id",
+                    "end_point_id",
+                    "ratio"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "segment_interpolation",
+                      "type": "string"
+                    },
+                    "start_point_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "end_point_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "ratio": {
+                      "exclusiveMinimum": 0,
+                      "exclusiveMaximum": 1,
+                      "type": "number"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "axis_id",
+                    "station_m",
+                    "lateral_offset_m",
+                    "elevation_offset_m"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "axis_station_offset",
+                      "type": "string"
+                    },
+                    "axis_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "station_m": {
+                      "minimum": -1000000,
+                      "maximum": 11000000,
+                      "type": "number"
+                    },
+                    "lateral_offset_m": {
+                      "minimum": -10000,
+                      "maximum": 10000,
+                      "type": "number"
+                    },
+                    "elevation_offset_m": {
+                      "minimum": -1000,
+                      "maximum": 1000,
+                      "type": "number"
+                    }
+                  }
+                }
+              ]
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.stakeout-point.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "geometry",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.stakeout-point.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "stakeout.point",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "geometry": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "coordinate_space",
+            "point"
+          ],
+          "properties": {
+            "kind": {
+              "const": "point3d",
+              "type": "string"
+            },
+            "coordinate_space": {
+              "const": "survey_crs",
+              "type": "string"
+            },
+            "point": {
+              "type": "array",
+              "items": [
+                {
+                  "minimum": -100000000,
+                  "maximum": 100000000,
+                  "type": "number"
+                },
+                {
+                  "minimum": -100000000,
+                  "maximum": 100000000,
+                  "type": "number"
+                },
+                {
+                  "minimum": -100000,
+                  "maximum": 100000,
+                  "type": "number"
+                }
+              ],
+              "additionalItems": false,
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "code",
+            "crs",
+            "derivation",
+            "coordinate_tolerance_m",
+            "accuracy",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.stakeout-point-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[^<>\\x00-\\x1F]+$",
+              "type": "string"
+            },
+            "code": {
+              "minLength": 1,
+              "maxLength": 50,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "derivation": {
+              "anyOf": [
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "manual",
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "page",
+                    "row",
+                    "source_code"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "document_import",
+                      "type": "string"
+                    },
+                    "page": {
+                      "minimum": 1,
+                      "maximum": 100000,
+                      "type": "integer"
+                    },
+                    "row": {
+                      "minimum": 1,
+                      "maximum": 1000000,
+                      "type": "integer"
+                    },
+                    "source_code": {
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[^<>\\x00-\\x1F]+$",
+                      "type": "string"
+                    },
+                    "source_layer": {
+                      "minLength": 1,
+                      "maxLength": 200,
+                      "pattern": "^[^<>\\x00-\\x1F]+$",
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "source_object_id",
+                    "station_m",
+                    "lateral_offset_m",
+                    "elevation_offset_m"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "axis_station_offset",
+                      "type": "string"
+                    },
+                    "source_object_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "station_m": {
+                      "minimum": -1000000,
+                      "maximum": 11000000,
+                      "type": "number"
+                    },
+                    "lateral_offset_m": {
+                      "minimum": -10000,
+                      "maximum": 10000,
+                      "type": "number"
+                    },
+                    "elevation_offset_m": {
+                      "minimum": -1000,
+                      "maximum": 1000,
+                      "type": "number"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "source_object_id",
+                    "station_m",
+                    "lateral_offset_m",
+                    "elevation_offset_m"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "profile_station_offset",
+                      "type": "string"
+                    },
+                    "source_object_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "station_m": {
+                      "minimum": -1000000,
+                      "maximum": 11000000,
+                      "type": "number"
+                    },
+                    "lateral_offset_m": {
+                      "minimum": -10000,
+                      "maximum": 10000,
+                      "type": "number"
+                    },
+                    "elevation_offset_m": {
+                      "minimum": -1000,
+                      "maximum": 1000,
+                      "type": "number"
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "type": "object",
+                  "required": [
+                    "kind",
+                    "source_object_id",
+                    "vertex_index"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "const": "sweep_vertex",
+                      "type": "string"
+                    },
+                    "source_object_id": {
+                      "minLength": 8,
+                      "maxLength": 72,
+                      "pattern": "^object_[A-Za-z0-9_-]+$",
+                      "type": "string"
+                    },
+                    "vertex_index": {
+                      "minimum": 0,
+                      "maximum": 99999,
+                      "type": "integer"
+                    }
+                  }
+                }
+              ]
+            },
+            "coordinate_tolerance_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 0.1,
+              "type": "number"
+            },
+            "accuracy": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "horizontal_m",
+                "vertical_m",
+                "method"
+              ],
+              "properties": {
+                "horizontal_m": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 100,
+                  "type": "number"
+                },
+                "vertical_m": {
+                  "exclusiveMinimum": 0,
+                  "maximum": 100,
+                  "type": "number"
+                },
+                "method": {
+                  "anyOf": [
+                    {
+                      "const": "manual",
+                      "type": "string"
+                    },
+                    {
+                      "const": "derived",
+                      "type": "string"
+                    },
+                    {
+                      "const": "surveyed",
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    {
+      "$id": "datamine.stakeout-group.v1",
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "type",
+        "layer_id",
+        "properties",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.stakeout-group.v1",
+          "type": "string"
+        },
+        "id": {
+          "minLength": 8,
+          "maxLength": 72,
+          "pattern": "^object_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "type": {
+          "const": "stakeout.group",
+          "type": "string"
+        },
+        "layer_id": {
+          "minLength": 7,
+          "maxLength": 72,
+          "pattern": "^layer_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "properties": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "schema_version",
+            "name",
+            "crs",
+            "ordering",
+            "point_ids",
+            "review_state"
+          ],
+          "properties": {
+            "schema_version": {
+              "const": "datamine.stakeout-group-properties.v1",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "maxLength": 200,
+              "pattern": "^[^<>\\x00-\\x1F]+$",
+              "type": "string"
+            },
+            "crs": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "epsg",
+                "axis_order",
+                "horizontal_unit",
+                "vertical_unit",
+                "vertical_datum"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "epsg",
+                  "type": "string"
+                },
+                "epsg": {
+                  "minimum": 1,
+                  "maximum": 999999,
+                  "type": "integer"
+                },
+                "axis_order": {
+                  "const": "east_north_up",
+                  "type": "string"
+                },
+                "horizontal_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_unit": {
+                  "const": "m",
+                  "type": "string"
+                },
+                "vertical_datum": {
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              }
+            },
+            "ordering": {
+              "const": "explicit",
+              "type": "string"
+            },
+            "point_ids": {
+              "minItems": 1,
+              "maxItems": 10000,
+              "type": "array",
+              "items": {
+                "minLength": 8,
+                "maxLength": 72,
+                "pattern": "^object_[A-Za-z0-9_-]+$",
+                "type": "string"
+              }
+            },
+            "review_state": {
+              "anyOf": [
+                {
+                  "const": "unreviewed",
+                  "type": "string"
+                },
+                {
+                  "const": "confirmed",
+                  "type": "string"
+                },
+                {
+                  "const": "corrected",
+                  "type": "string"
+                },
+                {
+                  "const": "rejected",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "provenance": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_document_id",
+            "source_document_sha256",
+            "source_kind",
+            "algorithm_version"
+          ],
+          "properties": {
+            "source_document_id": {
+              "minLength": 10,
+              "maxLength": 72,
+              "pattern": "^document_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_document_sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            "source_job_id": {
+              "minLength": 5,
+              "maxLength": 72,
+              "pattern": "^job_[A-Za-z0-9_-]+$",
+              "type": "string"
+            },
+            "source_kind": {
+              "anyOf": [
+                {
+                  "const": "automatic",
+                  "type": "string"
+                },
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "imported",
+                  "type": "string"
+                }
+              ]
+            },
+            "algorithm_version": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            },
+            "confidence": {
+              "minimum": 0,
+              "maximum": 1,
+              "type": "number"
+            },
+            "last_command_id": {
+              "minLength": 9,
+              "maxLength": 72,
+              "pattern": "^command_[A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

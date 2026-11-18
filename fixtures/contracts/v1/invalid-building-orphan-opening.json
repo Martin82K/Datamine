@@ -1,0 +1,39 @@
+{
+  "schema_version": "datamine.model-version.v1",
+  "id": "version_orphan_fixture",
+  "project_id": "project_demo",
+  "document_id": "document_plan",
+  "parent_id": null,
+  "revision": 0,
+  "status": "proposal",
+  "objects": [
+    {
+      "schema_version": "datamine.opening-object.v1",
+      "id": "object_opening_orphan",
+      "type": "building.opening",
+      "layer_id": "layer_building",
+      "geometry": {
+        "kind": "polyline",
+        "coordinate_space": "drawing_m",
+        "points": [[0, 0], [1, 0]]
+      },
+      "properties": {
+        "schema_version": "datamine.opening-properties.v1",
+        "host_wall_id": "object_wall_missing",
+        "opening_type": "window",
+        "width_m": 1,
+        "height_m": 1,
+        "sill_height_m": 1,
+        "area_m2": 1,
+        "review_state": "unreviewed"
+      },
+      "provenance": {
+        "source_document_id": "document_plan",
+        "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_kind": "automatic",
+        "algorithm_version": "building-contract-v1"
+      }
+    }
+  ],
+  "created_at": "2026-08-30T10:00:00Z"
+}

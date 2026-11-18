@@ -1,0 +1,98 @@
+{
+  "project": {
+    "schema_version": "datamine.project.v1",
+    "id": "project_demo",
+    "name": "Referenční projekt",
+    "created_at": "2026-08-29T12:00:00Z",
+    "updated_at": "2026-08-29T12:00:00Z"
+  },
+  "document": {
+    "schema_version": "datamine.document.v1",
+    "id": "document_plan_1np",
+    "project_id": "project_demo",
+    "display_name": "synteticky-pudorys.pdf",
+    "technical_name": "document_plan_1np.pdf",
+    "role": "floor_plan",
+    "media_type": "application/pdf",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "size_bytes": 1310720,
+    "storage_key": "blobs/sha256/aa/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.pdf",
+    "upload_state": "quarantined",
+    "created_at": "2026-08-29T12:00:00Z"
+  },
+  "model_version": {
+    "schema_version": "datamine.model-version.v1",
+    "id": "version_initial",
+    "project_id": "project_demo",
+    "document_id": "document_plan_1np",
+    "parent_id": null,
+    "revision": 0,
+    "status": "proposal",
+    "objects": [
+      {
+        "schema_version": "datamine.room-object.v1",
+        "id": "object_room_101",
+        "type": "rooms.room",
+        "layer_id": "layer_rooms",
+        "geometry": {
+          "kind": "polygon",
+          "coordinate_space": "drawing_m",
+          "rings": [[[0, 0], [4.2, 0], [4.2, 3.1], [0, 3.1]]]
+        },
+        "properties": {
+          "schema_version": "datamine.room-properties.v1",
+          "number": "1.01",
+          "name": "Místnost 1.01",
+          "floor_area_m2": 13.02,
+          "geometric_area_m2": 13.02,
+          "table_area_m2": 13.02,
+          "perimeter_m": 14.6,
+          "height_m": 3,
+          "floor_level_m": 0,
+          "included": true,
+          "quality": "ok",
+          "area_source": "ocr_table",
+          "shape_source": "measured",
+          "review_state": "unreviewed"
+        },
+        "provenance": {
+          "source_document_id": "document_plan_1np",
+          "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_job_id": "job_rooms_1",
+          "source_kind": "automatic",
+          "algorithm_version": "rooms-v1-baseline",
+          "confidence": 0.92
+        }
+      }
+    ],
+    "created_at": "2026-08-29T12:00:00Z"
+  },
+  "job": {
+    "schema_version": "datamine.job.v1",
+    "id": "job_rooms_1",
+    "project_id": "project_demo",
+    "input": {
+      "kind": "document",
+      "id": "document_plan_1np",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "job_type": "rooms.detect",
+    "algorithm_version": "rooms-v1-baseline",
+    "parameters_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "status": "succeeded",
+    "created_at": "2026-08-29T12:00:00Z"
+  },
+  "artifact": {
+    "schema_version": "datamine.artifact.v1",
+    "id": "artifact_rooms_json",
+    "project_id": "project_demo",
+    "job_id": "job_rooms_1",
+    "model_version_id": "version_initial",
+    "kind": "rooms.json",
+    "media_type": "application/json",
+    "storage_key": "projects/project_demo/artifacts/rooms.json",
+    "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "size_bytes": 4096,
+    "created_at": "2026-08-29T12:01:00Z"
+  }
+}

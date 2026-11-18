@@ -1,0 +1,30 @@
+{
+  "name": "datamine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Datamine product workspace",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "v2:schemas": "npm run build --workspace @datamine/contracts && npm run schemas --workspace @datamine/contracts",
+    "v2:build": "npm run v2:build:packages && npm run build --workspace @datamine/web",
+    "v2:test": "npm run v2:build && npm run v2:test:compiled",
+    "v2:dev": "npm run v2:build:packages && npm run dev --workspace @datamine/web",
+    "v2:build:packages": "npm run build --workspace @datamine/contracts && npm run build --workspace @datamine/editor-core && npm run build --workspace @datamine/renderer && npm run build --workspace @datamine/modules",
+    "v2:test:compiled": "npm run test --workspace @datamine/contracts && npm run test --workspace @datamine/editor-core && npm run test --workspace @datamine/modules && npm run test --workspace @datamine/renderer && npm run test --workspace @datamine/web"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.11.2",
+    "@types/node": "22.20.1",
+    "typescript": "7.0.2"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.16.0"
+  }
+}

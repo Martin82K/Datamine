@@ -1,0 +1,956 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.building-export.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "exporter_version",
+    "project_id",
+    "document_id",
+    "source_document_sha256",
+    "model_version_id",
+    "model_revision",
+    "model_content_sha256",
+    "coordinate_space",
+    "tolerance",
+    "units",
+    "objects",
+    "quantities"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.building-export.v1",
+      "type": "string"
+    },
+    "exporter_version": {
+      "const": "building-export-v1",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "document_id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^document_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_document_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "model_version_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^version_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "model_revision": {
+      "minimum": 0,
+      "maximum": 2147483647,
+      "type": "integer"
+    },
+    "model_content_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "coordinate_space": {
+      "const": "drawing_m",
+      "type": "string"
+    },
+    "tolerance": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "linear_m",
+        "area_m2",
+        "volume_m3"
+      ],
+      "properties": {
+        "linear_m": {
+          "const": 0.000001,
+          "type": "number"
+        },
+        "area_m2": {
+          "const": 0.000001,
+          "type": "number"
+        },
+        "volume_m3": {
+          "const": 0.000001,
+          "type": "number"
+        }
+      }
+    },
+    "units": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "length",
+        "area",
+        "volume"
+      ],
+      "properties": {
+        "length": {
+          "const": "m",
+          "type": "string"
+        },
+        "area": {
+          "const": "m2",
+          "type": "string"
+        },
+        "volume": {
+          "const": "m3",
+          "type": "string"
+        }
+      }
+    },
+    "objects": {
+      "minItems": 1,
+      "maxItems": 100000,
+      "type": "array",
+      "items": {
+        "$id": "datamine.building-object.v1",
+        "anyOf": [
+          {
+            "$id": "datamine.wall-object.v1",
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "schema_version",
+              "id",
+              "type",
+              "layer_id",
+              "geometry",
+              "properties",
+              "provenance"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": "datamine.wall-object.v1",
+                "type": "string"
+              },
+              "id": {
+                "minLength": 8,
+                "maxLength": 72,
+                "pattern": "^object_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "type": {
+                "const": "building.wall",
+                "type": "string"
+              },
+              "layer_id": {
+                "minLength": 7,
+                "maxLength": 72,
+                "pattern": "^layer_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "geometry": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "kind",
+                  "coordinate_space",
+                  "points"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "polyline",
+                    "type": "string"
+                  },
+                  "coordinate_space": {
+                    "anyOf": [
+                      {
+                        "const": "drawing_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "world_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "survey_crs",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "points": {
+                    "minItems": 2,
+                    "maxItems": 100000,
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "minimum": -100000000,
+                          "maximum": 100000000,
+                          "type": "number"
+                        },
+                        {
+                          "minimum": -100000000,
+                          "maximum": 100000000,
+                          "type": "number"
+                        }
+                      ],
+                      "additionalItems": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  }
+                }
+              },
+              "properties": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "name",
+                  "thickness_m",
+                  "height_m",
+                  "base_level_m",
+                  "length_m",
+                  "gross_side_area_m2",
+                  "volume_m3",
+                  "structural",
+                  "review_state"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "const": "datamine.wall-properties.v1",
+                    "type": "string"
+                  },
+                  "name": {
+                    "anyOf": [
+                      {
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "thickness_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10,
+                    "type": "number"
+                  },
+                  "height_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 1000,
+                    "type": "number"
+                  },
+                  "base_level_m": {
+                    "minimum": -1000,
+                    "maximum": 10000,
+                    "type": "number"
+                  },
+                  "length_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000,
+                    "type": "number"
+                  },
+                  "gross_side_area_m2": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000000,
+                    "type": "number"
+                  },
+                  "volume_m3": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000000,
+                    "type": "number"
+                  },
+                  "structural": {
+                    "type": "boolean"
+                  },
+                  "review_state": {
+                    "anyOf": [
+                      {
+                        "const": "unreviewed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "confirmed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "corrected",
+                        "type": "string"
+                      },
+                      {
+                        "const": "rejected",
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "provenance": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "source_document_id",
+                  "source_document_sha256",
+                  "source_kind",
+                  "algorithm_version"
+                ],
+                "properties": {
+                  "source_document_id": {
+                    "minLength": 10,
+                    "maxLength": 72,
+                    "pattern": "^document_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_document_sha256": {
+                    "pattern": "^[a-f0-9]{64}$",
+                    "type": "string"
+                  },
+                  "source_job_id": {
+                    "minLength": 5,
+                    "maxLength": 72,
+                    "pattern": "^job_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_kind": {
+                    "anyOf": [
+                      {
+                        "const": "automatic",
+                        "type": "string"
+                      },
+                      {
+                        "const": "manual",
+                        "type": "string"
+                      },
+                      {
+                        "const": "imported",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "algorithm_version": {
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "type": "string"
+                  },
+                  "confidence": {
+                    "minimum": 0,
+                    "maximum": 1,
+                    "type": "number"
+                  },
+                  "last_command_id": {
+                    "minLength": 9,
+                    "maxLength": 72,
+                    "pattern": "^command_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "$id": "datamine.opening-object.v1",
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "schema_version",
+              "id",
+              "type",
+              "layer_id",
+              "geometry",
+              "properties",
+              "provenance"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": "datamine.opening-object.v1",
+                "type": "string"
+              },
+              "id": {
+                "minLength": 8,
+                "maxLength": 72,
+                "pattern": "^object_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "type": {
+                "const": "building.opening",
+                "type": "string"
+              },
+              "layer_id": {
+                "minLength": 7,
+                "maxLength": 72,
+                "pattern": "^layer_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "geometry": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "kind",
+                  "coordinate_space",
+                  "points"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "polyline",
+                    "type": "string"
+                  },
+                  "coordinate_space": {
+                    "anyOf": [
+                      {
+                        "const": "drawing_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "world_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "survey_crs",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "points": {
+                    "minItems": 2,
+                    "maxItems": 100000,
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "minimum": -100000000,
+                          "maximum": 100000000,
+                          "type": "number"
+                        },
+                        {
+                          "minimum": -100000000,
+                          "maximum": 100000000,
+                          "type": "number"
+                        }
+                      ],
+                      "additionalItems": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  }
+                }
+              },
+              "properties": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "host_wall_id",
+                  "opening_type",
+                  "width_m",
+                  "height_m",
+                  "sill_height_m",
+                  "area_m2",
+                  "review_state"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "const": "datamine.opening-properties.v1",
+                    "type": "string"
+                  },
+                  "host_wall_id": {
+                    "minLength": 8,
+                    "maxLength": 72,
+                    "pattern": "^object_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "opening_type": {
+                    "anyOf": [
+                      {
+                        "const": "door",
+                        "type": "string"
+                      },
+                      {
+                        "const": "window",
+                        "type": "string"
+                      },
+                      {
+                        "const": "void",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "width_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 100,
+                    "type": "number"
+                  },
+                  "height_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 100,
+                    "type": "number"
+                  },
+                  "sill_height_m": {
+                    "minimum": 0,
+                    "maximum": 100,
+                    "type": "number"
+                  },
+                  "area_m2": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000,
+                    "type": "number"
+                  },
+                  "review_state": {
+                    "anyOf": [
+                      {
+                        "const": "unreviewed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "confirmed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "corrected",
+                        "type": "string"
+                      },
+                      {
+                        "const": "rejected",
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "provenance": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "source_document_id",
+                  "source_document_sha256",
+                  "source_kind",
+                  "algorithm_version"
+                ],
+                "properties": {
+                  "source_document_id": {
+                    "minLength": 10,
+                    "maxLength": 72,
+                    "pattern": "^document_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_document_sha256": {
+                    "pattern": "^[a-f0-9]{64}$",
+                    "type": "string"
+                  },
+                  "source_job_id": {
+                    "minLength": 5,
+                    "maxLength": 72,
+                    "pattern": "^job_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_kind": {
+                    "anyOf": [
+                      {
+                        "const": "automatic",
+                        "type": "string"
+                      },
+                      {
+                        "const": "manual",
+                        "type": "string"
+                      },
+                      {
+                        "const": "imported",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "algorithm_version": {
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "type": "string"
+                  },
+                  "confidence": {
+                    "minimum": 0,
+                    "maximum": 1,
+                    "type": "number"
+                  },
+                  "last_command_id": {
+                    "minLength": 9,
+                    "maxLength": 72,
+                    "pattern": "^command_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "$id": "datamine.floor-object.v1",
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "schema_version",
+              "id",
+              "type",
+              "layer_id",
+              "geometry",
+              "properties",
+              "provenance"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": "datamine.floor-object.v1",
+                "type": "string"
+              },
+              "id": {
+                "minLength": 8,
+                "maxLength": 72,
+                "pattern": "^object_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "type": {
+                "const": "building.floor",
+                "type": "string"
+              },
+              "layer_id": {
+                "minLength": 7,
+                "maxLength": 72,
+                "pattern": "^layer_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "geometry": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "kind",
+                  "coordinate_space",
+                  "rings"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "polygon",
+                    "type": "string"
+                  },
+                  "coordinate_space": {
+                    "anyOf": [
+                      {
+                        "const": "drawing_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "world_m",
+                        "type": "string"
+                      },
+                      {
+                        "const": "survey_crs",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "rings": {
+                    "minItems": 1,
+                    "maxItems": 128,
+                    "type": "array",
+                    "items": {
+                      "minItems": 3,
+                      "maxItems": 100000,
+                      "type": "array",
+                      "items": {
+                        "type": "array",
+                        "items": [
+                          {
+                            "minimum": -100000000,
+                            "maximum": 100000000,
+                            "type": "number"
+                          },
+                          {
+                            "minimum": -100000000,
+                            "maximum": 100000000,
+                            "type": "number"
+                          }
+                        ],
+                        "additionalItems": false,
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    }
+                  }
+                }
+              },
+              "properties": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "schema_version",
+                  "name",
+                  "thickness_m",
+                  "top_level_m",
+                  "area_m2",
+                  "volume_m3",
+                  "review_state"
+                ],
+                "properties": {
+                  "schema_version": {
+                    "const": "datamine.floor-properties.v1",
+                    "type": "string"
+                  },
+                  "name": {
+                    "anyOf": [
+                      {
+                        "minLength": 1,
+                        "maxLength": 200,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "thickness_m": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10,
+                    "type": "number"
+                  },
+                  "top_level_m": {
+                    "minimum": -1000,
+                    "maximum": 10000,
+                    "type": "number"
+                  },
+                  "area_m2": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000000,
+                    "type": "number"
+                  },
+                  "volume_m3": {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000000,
+                    "type": "number"
+                  },
+                  "review_state": {
+                    "anyOf": [
+                      {
+                        "const": "unreviewed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "confirmed",
+                        "type": "string"
+                      },
+                      {
+                        "const": "corrected",
+                        "type": "string"
+                      },
+                      {
+                        "const": "rejected",
+                        "type": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "provenance": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "source_document_id",
+                  "source_document_sha256",
+                  "source_kind",
+                  "algorithm_version"
+                ],
+                "properties": {
+                  "source_document_id": {
+                    "minLength": 10,
+                    "maxLength": 72,
+                    "pattern": "^document_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_document_sha256": {
+                    "pattern": "^[a-f0-9]{64}$",
+                    "type": "string"
+                  },
+                  "source_job_id": {
+                    "minLength": 5,
+                    "maxLength": 72,
+                    "pattern": "^job_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  },
+                  "source_kind": {
+                    "anyOf": [
+                      {
+                        "const": "automatic",
+                        "type": "string"
+                      },
+                      {
+                        "const": "manual",
+                        "type": "string"
+                      },
+                      {
+                        "const": "imported",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "algorithm_version": {
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "type": "string"
+                  },
+                  "confidence": {
+                    "minimum": 0,
+                    "maximum": 1,
+                    "type": "number"
+                  },
+                  "last_command_id": {
+                    "minLength": 9,
+                    "maxLength": 72,
+                    "pattern": "^command_[A-Za-z0-9_-]+$",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "quantities": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "rows",
+        "summary"
+      ],
+      "properties": {
+        "rows": {
+          "maxItems": 100000,
+          "type": "array",
+          "items": {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "object_id",
+              "object_type",
+              "length_m",
+              "gross_area_m2",
+              "net_area_m2",
+              "volume_m3",
+              "source_algorithm_version"
+            ],
+            "properties": {
+              "object_id": {
+                "minLength": 8,
+                "maxLength": 72,
+                "pattern": "^object_[A-Za-z0-9_-]+$",
+                "type": "string"
+              },
+              "object_type": {
+                "anyOf": [
+                  {
+                    "const": "building.wall",
+                    "type": "string"
+                  },
+                  {
+                    "const": "building.opening",
+                    "type": "string"
+                  },
+                  {
+                    "const": "building.floor",
+                    "type": "string"
+                  }
+                ]
+              },
+              "length_m": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "maximum": 10000000,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "gross_area_m2": {
+                "minimum": 0,
+                "maximum": 10000000000,
+                "type": "number"
+              },
+              "net_area_m2": {
+                "minimum": 0,
+                "maximum": 10000000000,
+                "type": "number"
+              },
+              "volume_m3": {
+                "minimum": 0,
+                "maximum": 10000000000,
+                "type": "number"
+              },
+              "source_algorithm_version": {
+                "minLength": 1,
+                "maxLength": 100,
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "objects_total",
+            "walls_total",
+            "openings_total",
+            "floors_total",
+            "length_m",
+            "gross_area_m2",
+            "net_area_m2",
+            "volume_m3"
+          ],
+          "properties": {
+            "objects_total": {
+              "minimum": 0,
+              "maximum": 100000,
+              "type": "integer"
+            },
+            "walls_total": {
+              "minimum": 0,
+              "maximum": 100000,
+              "type": "integer"
+            },
+            "openings_total": {
+              "minimum": 0,
+              "maximum": 100000,
+              "type": "integer"
+            },
+            "floors_total": {
+              "minimum": 0,
+              "maximum": 100000,
+              "type": "integer"
+            },
+            "length_m": {
+              "minimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "gross_area_m2": {
+              "minimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "net_area_m2": {
+              "minimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            },
+            "volume_m3": {
+              "minimum": 0,
+              "maximum": 10000000000,
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+}

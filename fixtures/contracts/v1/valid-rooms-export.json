@@ -1,0 +1,53 @@
+{
+  "schema_version": "datamine.rooms-export.v1",
+  "exporter_version": "rooms-export-json-v1",
+  "project_id": "project_demo",
+  "document_id": "document_plan_1np",
+  "model_version_id": "version_initial",
+  "model_revision": 0,
+  "model_content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "coordinate_space": "drawing_m",
+  "units": {"length": "m", "area": "m2", "volume": "m3", "elevation": "m"},
+  "rooms": [{
+    "schema_version": "datamine.room-object.v1",
+    "id": "object_room_101",
+    "type": "rooms.room",
+    "layer_id": "layer_rooms",
+    "geometry": {
+      "kind": "polygon",
+      "coordinate_space": "drawing_m",
+      "rings": [[[0, 0], [4.2, 0], [4.2, 3.1], [0, 3.1]]]
+    },
+    "properties": {
+      "schema_version": "datamine.room-properties.v1",
+      "number": "1.01",
+      "name": "Místnost 1.01",
+      "floor_area_m2": 13.02,
+      "geometric_area_m2": 13.02,
+      "table_area_m2": 13.02,
+      "perimeter_m": 14.6,
+      "height_m": 3,
+      "floor_level_m": 0,
+      "included": true,
+      "quality": "ok",
+      "area_source": "ocr_table",
+      "shape_source": "measured",
+      "review_state": "unreviewed"
+    },
+    "provenance": {
+      "source_document_id": "document_plan_1np",
+      "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_job_id": "job_rooms_1",
+      "source_kind": "automatic",
+      "algorithm_version": "rooms-v1-baseline",
+      "confidence": 0.92
+    }
+  }],
+  "summary": {
+    "rooms_total": 1,
+    "rooms_included": 1,
+    "floor_area_m2": 13.02,
+    "geometric_area_m2": 13.02,
+    "volume_m3": 39.06
+  }
+}

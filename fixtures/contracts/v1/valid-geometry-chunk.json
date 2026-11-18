@@ -1,0 +1,18 @@
+{
+  "schema_version": "datamine.geometry-chunk.v1",
+  "stream_id": "stream_demo",
+  "project_id": "project_demo",
+  "source_version_id": "version_demo",
+  "source_revision": 2,
+  "source_content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "object_id": "object_mesh_demo",
+  "manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "sequence": 0,
+  "chunk_count": 1,
+  "vertex_start": 0,
+  "face_start": 0,
+  "vertices": [[0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0]],
+  "faces": [[0, 1, 2], [0, 2, 3]],
+  "payload_bytes": 128,
+  "payload_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@datamine/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "schemas": "node dist/export-schemas.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "0.34.52"
+  }
+}

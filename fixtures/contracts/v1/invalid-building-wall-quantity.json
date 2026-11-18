@@ -1,0 +1,29 @@
+{
+  "schema_version": "datamine.wall-object.v1",
+  "id": "object_wall_invalid_quantity",
+  "type": "building.wall",
+  "layer_id": "layer_building",
+  "geometry": {
+    "kind": "polyline",
+    "coordinate_space": "drawing_m",
+    "points": [[0, 0], [5, 0]]
+  },
+  "properties": {
+    "schema_version": "datamine.wall-properties.v1",
+    "name": null,
+    "thickness_m": 0.3,
+    "height_m": 3,
+    "base_level_m": 0,
+    "length_m": 5,
+    "gross_side_area_m2": 15,
+    "volume_m3": 1,
+    "structural": true,
+    "review_state": "confirmed"
+  },
+  "provenance": {
+    "source_document_id": "document_plan",
+    "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_kind": "manual",
+    "algorithm_version": "building-contract-v1"
+  }
+}

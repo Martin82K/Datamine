@@ -1,0 +1,273 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.cad-underlay-view.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_format",
+    "source_document_id",
+    "source_document_sha256",
+    "etag_sha256",
+    "page_index",
+    "page_width_pt",
+    "page_height_pt",
+    "source_crs",
+    "pdf_to_survey_xy",
+    "survey_to_world_xy",
+    "survey_plane_elevation_m",
+    "world_elevation_offset_m",
+    "tolerance_m",
+    "control_points"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.cad-underlay-view.v1",
+      "type": "string"
+    },
+    "source_format": {
+      "const": "cad_pdf",
+      "type": "string"
+    },
+    "source_document_id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^document_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_document_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "etag_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "page_index": {
+      "minimum": 0,
+      "maximum": 9999,
+      "type": "integer"
+    },
+    "page_width_pt": {
+      "exclusiveMinimum": 0,
+      "maximum": 200000,
+      "type": "number"
+    },
+    "page_height_pt": {
+      "exclusiveMinimum": 0,
+      "maximum": 200000,
+      "type": "number"
+    },
+    "source_crs": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kind",
+        "epsg",
+        "axis_order",
+        "horizontal_unit",
+        "vertical_unit",
+        "vertical_datum"
+      ],
+      "properties": {
+        "kind": {
+          "const": "epsg",
+          "type": "string"
+        },
+        "epsg": {
+          "minimum": 1,
+          "maximum": 999999,
+          "type": "integer"
+        },
+        "axis_order": {
+          "const": "east_north_up",
+          "type": "string"
+        },
+        "horizontal_unit": {
+          "const": "m",
+          "type": "string"
+        },
+        "vertical_unit": {
+          "const": "m",
+          "type": "string"
+        },
+        "vertical_datum": {
+          "minLength": 1,
+          "maxLength": 100,
+          "type": "string"
+        }
+      }
+    },
+    "pdf_to_survey_xy": {
+      "type": "array",
+      "items": [
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        }
+      ],
+      "additionalItems": false,
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "survey_to_world_xy": {
+      "type": "array",
+      "items": [
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -1000000,
+          "maximum": 1000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        },
+        {
+          "minimum": -100000000,
+          "maximum": 100000000,
+          "type": "number"
+        }
+      ],
+      "additionalItems": false,
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "survey_plane_elevation_m": {
+      "minimum": -100000,
+      "maximum": 100000,
+      "type": "number"
+    },
+    "world_elevation_offset_m": {
+      "minimum": -100000,
+      "maximum": 100000,
+      "type": "number"
+    },
+    "tolerance_m": {
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "type": "number"
+    },
+    "control_points": {
+      "minItems": 3,
+      "maxItems": 32,
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "document_pt",
+          "survey_crs",
+          "world_m"
+        ],
+        "properties": {
+          "document_pt": {
+            "type": "array",
+            "items": [
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              },
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              }
+            ],
+            "additionalItems": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "survey_crs": {
+            "type": "array",
+            "items": [
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              },
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              },
+              {
+                "minimum": -100000,
+                "maximum": 100000,
+                "type": "number"
+              }
+            ],
+            "additionalItems": false,
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "world_m": {
+            "type": "array",
+            "items": [
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              },
+              {
+                "minimum": -100000000,
+                "maximum": 100000000,
+                "type": "number"
+              },
+              {
+                "minimum": -100000,
+                "maximum": 100000,
+                "type": "number"
+              }
+            ],
+            "additionalItems": false,
+            "minItems": 3,
+            "maxItems": 3
+          }
+        }
+      }
+    }
+  }
+}

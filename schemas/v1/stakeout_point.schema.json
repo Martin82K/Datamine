@@ -1,0 +1,430 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.stakeout-point.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "type",
+    "layer_id",
+    "geometry",
+    "properties",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.stakeout-point.v1",
+      "type": "string"
+    },
+    "id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "type": {
+      "const": "stakeout.point",
+      "type": "string"
+    },
+    "layer_id": {
+      "minLength": 7,
+      "maxLength": 72,
+      "pattern": "^layer_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "geometry": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "kind",
+        "coordinate_space",
+        "point"
+      ],
+      "properties": {
+        "kind": {
+          "const": "point3d",
+          "type": "string"
+        },
+        "coordinate_space": {
+          "const": "survey_crs",
+          "type": "string"
+        },
+        "point": {
+          "type": "array",
+          "items": [
+            {
+              "minimum": -100000000,
+              "maximum": 100000000,
+              "type": "number"
+            },
+            {
+              "minimum": -100000000,
+              "maximum": 100000000,
+              "type": "number"
+            },
+            {
+              "minimum": -100000,
+              "maximum": 100000,
+              "type": "number"
+            }
+          ],
+          "additionalItems": false,
+          "minItems": 3,
+          "maxItems": 3
+        }
+      }
+    },
+    "properties": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "name",
+        "code",
+        "crs",
+        "derivation",
+        "coordinate_tolerance_m",
+        "accuracy",
+        "review_state"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.stakeout-point-properties.v1",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^<>\\x00-\\x1F]+$",
+          "type": "string"
+        },
+        "code": {
+          "minLength": 1,
+          "maxLength": 50,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$",
+          "type": "string"
+        },
+        "crs": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "epsg",
+            "axis_order",
+            "horizontal_unit",
+            "vertical_unit",
+            "vertical_datum"
+          ],
+          "properties": {
+            "kind": {
+              "const": "epsg",
+              "type": "string"
+            },
+            "epsg": {
+              "minimum": 1,
+              "maximum": 999999,
+              "type": "integer"
+            },
+            "axis_order": {
+              "const": "east_north_up",
+              "type": "string"
+            },
+            "horizontal_unit": {
+              "const": "m",
+              "type": "string"
+            },
+            "vertical_unit": {
+              "const": "m",
+              "type": "string"
+            },
+            "vertical_datum": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            }
+          }
+        },
+        "derivation": {
+          "anyOf": [
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "manual",
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "page",
+                "row",
+                "source_code"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "document_import",
+                  "type": "string"
+                },
+                "page": {
+                  "minimum": 1,
+                  "maximum": 100000,
+                  "type": "integer"
+                },
+                "row": {
+                  "minimum": 1,
+                  "maximum": 1000000,
+                  "type": "integer"
+                },
+                "source_code": {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[^<>\\x00-\\x1F]+$",
+                  "type": "string"
+                },
+                "source_layer": {
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "pattern": "^[^<>\\x00-\\x1F]+$",
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "source_object_id",
+                "station_m",
+                "lateral_offset_m",
+                "elevation_offset_m"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "axis_station_offset",
+                  "type": "string"
+                },
+                "source_object_id": {
+                  "minLength": 8,
+                  "maxLength": 72,
+                  "pattern": "^object_[A-Za-z0-9_-]+$",
+                  "type": "string"
+                },
+                "station_m": {
+                  "minimum": -1000000,
+                  "maximum": 11000000,
+                  "type": "number"
+                },
+                "lateral_offset_m": {
+                  "minimum": -10000,
+                  "maximum": 10000,
+                  "type": "number"
+                },
+                "elevation_offset_m": {
+                  "minimum": -1000,
+                  "maximum": 1000,
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "source_object_id",
+                "station_m",
+                "lateral_offset_m",
+                "elevation_offset_m"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "profile_station_offset",
+                  "type": "string"
+                },
+                "source_object_id": {
+                  "minLength": 8,
+                  "maxLength": 72,
+                  "pattern": "^object_[A-Za-z0-9_-]+$",
+                  "type": "string"
+                },
+                "station_m": {
+                  "minimum": -1000000,
+                  "maximum": 11000000,
+                  "type": "number"
+                },
+                "lateral_offset_m": {
+                  "minimum": -10000,
+                  "maximum": 10000,
+                  "type": "number"
+                },
+                "elevation_offset_m": {
+                  "minimum": -1000,
+                  "maximum": 1000,
+                  "type": "number"
+                }
+              }
+            },
+            {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "source_object_id",
+                "vertex_index"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "sweep_vertex",
+                  "type": "string"
+                },
+                "source_object_id": {
+                  "minLength": 8,
+                  "maxLength": 72,
+                  "pattern": "^object_[A-Za-z0-9_-]+$",
+                  "type": "string"
+                },
+                "vertex_index": {
+                  "minimum": 0,
+                  "maximum": 99999,
+                  "type": "integer"
+                }
+              }
+            }
+          ]
+        },
+        "coordinate_tolerance_m": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.1,
+          "type": "number"
+        },
+        "accuracy": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "horizontal_m",
+            "vertical_m",
+            "method"
+          ],
+          "properties": {
+            "horizontal_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "vertical_m": {
+              "exclusiveMinimum": 0,
+              "maximum": 100,
+              "type": "number"
+            },
+            "method": {
+              "anyOf": [
+                {
+                  "const": "manual",
+                  "type": "string"
+                },
+                {
+                  "const": "derived",
+                  "type": "string"
+                },
+                {
+                  "const": "surveyed",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        "review_state": {
+          "anyOf": [
+            {
+              "const": "unreviewed",
+              "type": "string"
+            },
+            {
+              "const": "confirmed",
+              "type": "string"
+            },
+            {
+              "const": "corrected",
+              "type": "string"
+            },
+            {
+              "const": "rejected",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "source_document_id",
+        "source_document_sha256",
+        "source_kind",
+        "algorithm_version"
+      ],
+      "properties": {
+        "source_document_id": {
+          "minLength": 10,
+          "maxLength": 72,
+          "pattern": "^document_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "source_document_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "source_job_id": {
+          "minLength": 5,
+          "maxLength": 72,
+          "pattern": "^job_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "source_kind": {
+          "anyOf": [
+            {
+              "const": "automatic",
+              "type": "string"
+            },
+            {
+              "const": "manual",
+              "type": "string"
+            },
+            {
+              "const": "imported",
+              "type": "string"
+            }
+          ]
+        },
+        "algorithm_version": {
+          "minLength": 1,
+          "maxLength": 100,
+          "type": "string"
+        },
+        "confidence": {
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number"
+        },
+        "last_command_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^command_[A-Za-z0-9_-]+$",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": "datamine.document-view.v1",
+  "source_document_id": "document_plan_1np",
+  "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "page_index": 0,
+  "page_width_pt": 841.89,
+  "page_height_pt": 595.28,
+  "page_rotation_deg": 270,
+  "drawing_scale": 75,
+  "source_coordinate_space": "pdf_display_pt",
+  "target_coordinate_space": "drawing_m",
+  "pdf_to_drawing_m": [1, 2, 2, 4, 0, 0]
+}

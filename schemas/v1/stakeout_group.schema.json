@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.stakeout-group.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "id",
+    "type",
+    "layer_id",
+    "properties",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.stakeout-group.v1",
+      "type": "string"
+    },
+    "id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "type": {
+      "const": "stakeout.group",
+      "type": "string"
+    },
+    "layer_id": {
+      "minLength": 7,
+      "maxLength": 72,
+      "pattern": "^layer_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "properties": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "schema_version",
+        "name",
+        "crs",
+        "ordering",
+        "point_ids",
+        "review_state"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "datamine.stakeout-group-properties.v1",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[^<>\\x00-\\x1F]+$",
+          "type": "string"
+        },
+        "crs": {
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "epsg",
+            "axis_order",
+            "horizontal_unit",
+            "vertical_unit",
+            "vertical_datum"
+          ],
+          "properties": {
+            "kind": {
+              "const": "epsg",
+              "type": "string"
+            },
+            "epsg": {
+              "minimum": 1,
+              "maximum": 999999,
+              "type": "integer"
+            },
+            "axis_order": {
+              "const": "east_north_up",
+              "type": "string"
+            },
+            "horizontal_unit": {
+              "const": "m",
+              "type": "string"
+            },
+            "vertical_unit": {
+              "const": "m",
+              "type": "string"
+            },
+            "vertical_datum": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            }
+          }
+        },
+        "ordering": {
+          "const": "explicit",
+          "type": "string"
+        },
+        "point_ids": {
+          "minItems": 1,
+          "maxItems": 10000,
+          "type": "array",
+          "items": {
+            "minLength": 8,
+            "maxLength": 72,
+            "pattern": "^object_[A-Za-z0-9_-]+$",
+            "type": "string"
+          }
+        },
+        "review_state": {
+          "anyOf": [
+            {
+              "const": "unreviewed",
+              "type": "string"
+            },
+            {
+              "const": "confirmed",
+              "type": "string"
+            },
+            {
+              "const": "corrected",
+              "type": "string"
+            },
+            {
+              "const": "rejected",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "source_document_id",
+        "source_document_sha256",
+        "source_kind",
+        "algorithm_version"
+      ],
+      "properties": {
+        "source_document_id": {
+          "minLength": 10,
+          "maxLength": 72,
+          "pattern": "^document_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "source_document_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "source_job_id": {
+          "minLength": 5,
+          "maxLength": 72,
+          "pattern": "^job_[A-Za-z0-9_-]+$",
+          "type": "string"
+        },
+        "source_kind": {
+          "anyOf": [
+            {
+              "const": "automatic",
+              "type": "string"
+            },
+            {
+              "const": "manual",
+              "type": "string"
+            },
+            {
+              "const": "imported",
+              "type": "string"
+            }
+          ]
+        },
+        "algorithm_version": {
+          "minLength": 1,
+          "maxLength": 100,
+          "type": "string"
+        },
+        "confidence": {
+          "minimum": 0,
+          "maximum": 1,
+          "type": "number"
+        },
+        "last_command_id": {
+          "minLength": 9,
+          "maxLength": 72,
+          "pattern": "^command_[A-Za-z0-9_-]+$",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="cs" class="dm-theme" data-datamine-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datamine Design · Showcase</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles/index.css">
+  <style>
+    html, body { min-height: 100%; margin: 0; }
+    body { min-height: 100vh; }
+    .demo { padding: 2rem 0 4rem; }
+    .demo__head { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .demo__head h1 { margin: 0; font-size: var(--dm-font-size-2xl); line-height: var(--dm-line-tight); }
+    .demo__head p { margin: .35rem 0 0; color: var(--dm-color-text-muted); }
+    .demo__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .demo__stack { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+    .demo__section { display: grid; gap: 1rem; }
+    .demo__section h2 { margin: 0; font-size: var(--dm-font-size-lg); }
+    .demo__full { grid-column: 1 / -1; }
+    @media (max-width: 42rem) { .demo__grid { grid-template-columns: 1fr; } .demo__full { grid-column: auto; } }
+  </style>
+</head>
+<body class="dm-stage">
+  <main class="dm-container demo">
+    <header class="demo__head dm-enter">
+      <div>
+        <div class="dm-label">Design system 0.1</div>
+        <h1>Datamine <span style="color:var(--dm-color-text-muted)">Atelier</span></h1>
+        <p>Přenosná mapa čistého technického rozhraní.</p>
+      </div>
+      <span class="dm-toolbar__spacer"></span>
+      <button class="dm-btn dm-btn--secondary" id="themeToggle" type="button">Světlé téma</button>
+    </header>
+
+    <div class="demo__grid">
+      <section class="dm-card dm-card--glass demo__section dm-enter">
+        <h2>Akce a stavy</h2>
+        <div class="demo__stack">
+          <button class="dm-btn dm-btn--primary">Otevřít výkres</button>
+          <button class="dm-btn dm-btn--secondary">Audit</button>
+          <button class="dm-btn dm-btn--quiet">Zrušit</button>
+          <button class="dm-btn dm-btn--danger">Odstranit</button>
+        </div>
+        <div class="demo__stack">
+          <span class="dm-chip dm-chip--success"><span class="dm-chip__dot"></span>Zpracováno</span>
+          <span class="dm-chip dm-chip--warning">1 revize</span>
+          <span class="dm-badge dm-badge--primary">3D</span>
+          <span class="dm-status dm-status--info">Probíhá kontrola</span>
+        </div>
+      </section>
+
+      <section class="dm-card dm-card--glass demo__section dm-enter">
+        <h2>Formulář</h2>
+        <label class="dm-field">
+          <span class="dm-field__label">Název projektu</span>
+          <input class="dm-input" value="Syntetický stavební projekt">
+          <span class="dm-field__hint">Uživatelský název může obsahovat diakritiku.</span>
+        </label>
+        <label class="dm-field">
+          <span class="dm-field__label">Role výkresu</span>
+          <select class="dm-select"><option>Půdorys místností</option><option>Technický výkres</option></select>
+        </label>
+      </section>
+
+      <section class="dm-card dm-card--glass dm-card--interactive demo__section dm-enter">
+        <span class="dm-badge dm-badge--success">Připraveno</span>
+        <h2 style="margin:0">D.1.1.7 · Půdorys 1.NP</h2>
+        <span class="dm-mono" style="color:var(--dm-color-text-subtle)">2 480 prvků · 18 místností</span>
+        <button class="dm-btn dm-btn--primary">Měřit místnosti</button>
+      </section>
+
+      <section class="dm-card demo__section dm-enter">
+        <h2>Segmentovaný výběr</h2>
+        <div class="dm-segmented" role="tablist" aria-label="Režim zobrazení">
+          <button class="dm-segmented__item" role="tab" aria-selected="true">Výkres</button>
+          <button class="dm-segmented__item" role="tab" aria-selected="false">Tabulka</button>
+          <button class="dm-segmented__item" role="tab" aria-selected="false">3D model</button>
+        </div>
+        <div class="dm-skeleton" style="height:3rem" aria-hidden="true">Načítání</div>
+      </section>
+
+      <section class="demo__full dm-enter">
+        <div class="dm-table-wrap">
+          <table class="dm-table">
+            <thead><tr><th>Místnost</th><th>Plocha</th><th>Stav</th></tr></thead>
+            <tbody>
+              <tr><td>1.01 · Hala</td><td class="dm-mono">24,80 m²</td><td><span class="dm-badge dm-badge--success">Ověřeno</span></td></tr>
+              <tr><td>1.02 · Zázemí</td><td class="dm-mono">12,35 m²</td><td><span class="dm-badge dm-badge--warning">Kontrola</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module">
+    import { setDatamineTheme } from "./src/index.js";
+    const button = document.querySelector("#themeToggle");
+    button.addEventListener("click", () => {
+      const next = document.documentElement.dataset.datamineTheme === "dark" ? "light" : "dark";
+      setDatamineTheme(next);
+      button.textContent = next === "dark" ? "Světlé téma" : "Tmavé téma";
+    });
+    document.querySelectorAll(".dm-segmented__item").forEach((item) => {
+      item.addEventListener("click", () => {
+        item.parentElement.querySelectorAll(".dm-segmented__item").forEach((candidate) => candidate.setAttribute("aria-selected", String(candidate === item)));
+      });
+    });
+  </script>
+</body>
+</html>

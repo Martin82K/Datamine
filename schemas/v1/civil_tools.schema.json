@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.civil-tools.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "axis_id",
+    "profile_id",
+    "section",
+    "sampling_spacing_m",
+    "caps"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.civil-tools.v1",
+      "type": "string"
+    },
+    "axis_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "profile_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "section": {
+      "minItems": 2,
+      "maxItems": 64,
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "offset_m",
+          "elevation_offset_m"
+        ],
+        "properties": {
+          "offset_m": {
+            "minimum": -1000,
+            "maximum": 1000,
+            "type": "number"
+          },
+          "elevation_offset_m": {
+            "minimum": -1000,
+            "maximum": 1000,
+            "type": "number"
+          }
+        }
+      }
+    },
+    "sampling_spacing_m": {
+      "exclusiveMinimum": 0,
+      "maximum": 1000,
+      "type": "number"
+    },
+    "caps": {
+      "type": "boolean"
+    }
+  }
+}

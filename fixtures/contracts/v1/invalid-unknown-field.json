@@ -1,0 +1,8 @@
+{
+  "schema_version": "datamine.project.v1",
+  "id": "project_demo",
+  "name": "Referenční projekt",
+  "created_at": "2026-08-29T12:00:00Z",
+  "updated_at": "2026-08-29T12:00:00Z",
+  "debug_path": "/tmp/project"
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "datamine.model-version.v1",
+  "id": "version_stakeout",
+  "project_id": "project_civil",
+  "document_id": "document_situation",
+  "parent_id": "version_civil_tools",
+  "revision": 3,
+  "status": "working",
+  "objects": [
+    {
+      "schema_version": "datamine.civil-axis-object.v1",
+      "id": "object_axis_main",
+      "type": "civil.axis",
+      "layer_id": "layer_civil",
+      "geometry": {"kind": "polyline3d", "coordinate_space": "survey_crs", "points": [[0, 0, 100], [10, 0, 101]]},
+      "properties": {
+        "schema_version": "datamine.civil-axis-properties.v1", "name": "Hlavní osa",
+        "crs": {"kind": "epsg", "epsg": 5514, "axis_order": "east_north_up", "horizontal_unit": "m", "vertical_unit": "m", "vertical_datum": "Bpv"},
+        "start_station_m": 1000, "length_m": 10, "review_state": "confirmed"
+      },
+      "provenance": {"source_document_id": "document_situation", "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "source_kind": "manual", "algorithm_version": "civil-axis-v1"}
+    },
+    {
+      "schema_version": "datamine.civil-profile-object.v1",
+      "id": "object_profile_main",
+      "type": "civil.profile",
+      "layer_id": "layer_civil",
+      "geometry": {"kind": "polyline3d", "coordinate_space": "survey_crs", "points": [[0, 0, 100], [10, 0, 101]]},
+      "properties": {
+        "schema_version": "datamine.civil-profile-properties.v1", "name": "Podélný profil", "axis_id": "object_axis_main",
+        "crs": {"kind": "epsg", "epsg": 5514, "axis_order": "east_north_up", "horizontal_unit": "m", "vertical_unit": "m", "vertical_datum": "Bpv"},
+        "samples": [{"station_m": 1000, "elevation_m": 100}, {"station_m": 1010, "elevation_m": 101}], "review_state": "confirmed"
+      },
+      "provenance": {"source_document_id": "document_situation", "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "source_kind": "manual", "algorithm_version": "civil-profile-v1"}
+    },
+    {
+      "schema_version": "datamine.stakeout-point.v1",
+      "id": "object_stakeout_a001",
+      "type": "stakeout.point",
+      "layer_id": "layer_stakeout",
+      "geometry": {"kind": "point3d", "coordinate_space": "survey_crs", "point": [5, 2, 100.7]},
+      "properties": {
+        "schema_version": "datamine.stakeout-point-properties.v1", "name": "Bod osy A001", "code": "A001",
+        "crs": {"kind": "epsg", "epsg": 5514, "axis_order": "east_north_up", "horizontal_unit": "m", "vertical_unit": "m", "vertical_datum": "Bpv"},
+        "derivation": {"kind": "axis_station_offset", "source_object_id": "object_axis_main", "station_m": 1005, "lateral_offset_m": 2, "elevation_offset_m": 0.2},
+        "coordinate_tolerance_m": 0.001,
+        "accuracy": {"horizontal_m": 0.02, "vertical_m": 0.03, "method": "derived"},
+        "review_state": "unreviewed"
+      },
+      "provenance": {"source_document_id": "document_situation", "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "source_job_id": "job_stakeout_demo", "source_kind": "automatic", "algorithm_version": "stakeout-axis-profile-v1"}
+    },
+    {
+      "schema_version": "datamine.stakeout-point.v1",
+      "id": "object_stakeout_m001",
+      "type": "stakeout.point",
+      "layer_id": "layer_stakeout",
+      "geometry": {"kind": "point3d", "coordinate_space": "survey_crs", "point": [2, 3, 99]},
+      "properties": {
+        "schema_version": "datamine.stakeout-point-properties.v1", "name": "Kontrolní bod M001", "code": "M001",
+        "crs": {"kind": "epsg", "epsg": 5514, "axis_order": "east_north_up", "horizontal_unit": "m", "vertical_unit": "m", "vertical_datum": "Bpv"},
+        "derivation": {"kind": "manual"}, "coordinate_tolerance_m": 0.001,
+        "accuracy": {"horizontal_m": 0.01, "vertical_m": 0.015, "method": "surveyed"},
+        "review_state": "confirmed"
+      },
+      "provenance": {"source_document_id": "document_situation", "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "source_kind": "manual", "algorithm_version": "stakeout-manual-v1"}
+    },
+    {
+      "schema_version": "datamine.stakeout-group.v1",
+      "id": "object_stakeout_group_main",
+      "type": "stakeout.group",
+      "layer_id": "layer_stakeout",
+      "properties": {
+        "schema_version": "datamine.stakeout-group-properties.v1", "name": "Hlavní vytyčení",
+        "crs": {"kind": "epsg", "epsg": 5514, "axis_order": "east_north_up", "horizontal_unit": "m", "vertical_unit": "m", "vertical_datum": "Bpv"},
+        "ordering": "explicit", "point_ids": ["object_stakeout_a001", "object_stakeout_m001"], "review_state": "unreviewed"
+      },
+      "provenance": {"source_document_id": "document_situation", "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "source_kind": "manual", "algorithm_version": "stakeout-group-v1"}
+    }
+  ],
+  "created_at": "2026-08-30T13:00:00Z"
+}

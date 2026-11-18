@@ -1,0 +1,94 @@
+{
+  "schema_version": "datamine.model-version.v1",
+  "id": "version_building_fixture",
+  "project_id": "project_demo",
+  "document_id": "document_plan",
+  "parent_id": null,
+  "revision": 0,
+  "status": "proposal",
+  "objects": [
+    {
+      "schema_version": "datamine.wall-object.v1",
+      "id": "object_wall_01",
+      "type": "building.wall",
+      "layer_id": "layer_building",
+      "geometry": {
+        "kind": "polyline",
+        "coordinate_space": "drawing_m",
+        "points": [[0, 0], [5, 0]]
+      },
+      "properties": {
+        "schema_version": "datamine.wall-properties.v1",
+        "name": "Obvodová stěna",
+        "thickness_m": 0.3,
+        "height_m": 3,
+        "base_level_m": 0,
+        "length_m": 5,
+        "gross_side_area_m2": 15,
+        "volume_m3": 4.5,
+        "structural": true,
+        "review_state": "confirmed"
+      },
+      "provenance": {
+        "source_document_id": "document_plan",
+        "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_kind": "manual",
+        "algorithm_version": "building-contract-v1"
+      }
+    },
+    {
+      "schema_version": "datamine.opening-object.v1",
+      "id": "object_opening_01",
+      "type": "building.opening",
+      "layer_id": "layer_building",
+      "geometry": {
+        "kind": "polyline",
+        "coordinate_space": "drawing_m",
+        "points": [[2, 0], [3, 0]]
+      },
+      "properties": {
+        "schema_version": "datamine.opening-properties.v1",
+        "host_wall_id": "object_wall_01",
+        "opening_type": "door",
+        "width_m": 1,
+        "height_m": 2.1,
+        "sill_height_m": 0,
+        "area_m2": 2.1,
+        "review_state": "confirmed"
+      },
+      "provenance": {
+        "source_document_id": "document_plan",
+        "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_kind": "manual",
+        "algorithm_version": "building-contract-v1"
+      }
+    },
+    {
+      "schema_version": "datamine.floor-object.v1",
+      "id": "object_floor_01",
+      "type": "building.floor",
+      "layer_id": "layer_building",
+      "geometry": {
+        "kind": "polygon",
+        "coordinate_space": "drawing_m",
+        "rings": [[[0, 0], [5, 0], [5, 4], [0, 4]]]
+      },
+      "properties": {
+        "schema_version": "datamine.floor-properties.v1",
+        "name": "Podlaha 1.NP",
+        "thickness_m": 0.2,
+        "top_level_m": 0,
+        "area_m2": 20,
+        "volume_m3": 4,
+        "review_state": "confirmed"
+      },
+      "provenance": {
+        "source_document_id": "document_plan",
+        "source_document_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_kind": "manual",
+        "algorithm_version": "building-contract-v1"
+      }
+    }
+  ],
+  "created_at": "2026-08-30T10:00:00Z"
+}

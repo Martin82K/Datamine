@@ -1,0 +1,120 @@
+{
+  "schema_version": "datamine.model-version.v1",
+  "id": "version_civil_tools",
+  "project_id": "project_civil",
+  "document_id": "document_situation",
+  "parent_id": "version_civil_source",
+  "revision": 2,
+  "status": "working",
+  "objects": [
+    {
+      "schema_version": "datamine.civil-axis-object.v1",
+      "id": "object_axis_main",
+      "type": "civil.axis",
+      "layer_id": "layer_civil",
+      "geometry": {
+        "kind": "polyline3d",
+        "coordinate_space": "survey_crs",
+        "points": [[0, 0, 100], [10, 0, 101]]
+      },
+      "properties": {
+        "schema_version": "datamine.civil-axis-properties.v1",
+        "name": "Hlavní osa",
+        "crs": {
+          "kind": "epsg",
+          "epsg": 5514,
+          "axis_order": "east_north_up",
+          "horizontal_unit": "m",
+          "vertical_unit": "m",
+          "vertical_datum": "Bpv"
+        },
+        "start_station_m": 1000,
+        "length_m": 10,
+        "review_state": "confirmed"
+      },
+      "provenance": {
+        "source_document_id": "document_situation",
+        "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_kind": "manual",
+        "algorithm_version": "civil-axis-v1"
+      }
+    },
+    {
+      "schema_version": "datamine.civil-profile-object.v1",
+      "id": "object_profile_main",
+      "type": "civil.profile",
+      "layer_id": "layer_civil",
+      "geometry": {
+        "kind": "polyline3d",
+        "coordinate_space": "survey_crs",
+        "points": [[0, 0, 100], [10, 0, 101]]
+      },
+      "properties": {
+        "schema_version": "datamine.civil-profile-properties.v1",
+        "name": "Podélný profil",
+        "axis_id": "object_axis_main",
+        "crs": {
+          "kind": "epsg",
+          "epsg": 5514,
+          "axis_order": "east_north_up",
+          "horizontal_unit": "m",
+          "vertical_unit": "m",
+          "vertical_datum": "Bpv"
+        },
+        "samples": [
+          {"station_m": 1000, "elevation_m": 100},
+          {"station_m": 1010, "elevation_m": 101}
+        ],
+        "review_state": "confirmed"
+      },
+      "provenance": {
+        "source_document_id": "document_situation",
+        "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_kind": "manual",
+        "algorithm_version": "civil-profile-v1"
+      }
+    },
+    {
+      "schema_version": "datamine.civil-sweep-object.v1",
+      "id": "object_sweep_main",
+      "type": "civil.sweep",
+      "layer_id": "layer_civil",
+      "geometry": {
+        "kind": "indexed_mesh",
+        "coordinate_space": "survey_crs",
+        "vertices": [[0, -1, 100], [0, 1, 100], [5, -1, 100.5], [5, 1, 100.5], [10, -1, 101], [10, 1, 101]],
+        "faces": [[0, 2, 1], [1, 2, 3], [2, 4, 3], [3, 4, 5]],
+        "bounds": {"min": [0, -1, 100], "max": [10, 1, 101]}
+      },
+      "properties": {
+        "schema_version": "datamine.civil-sweep-properties.v1",
+        "name": "Koridor",
+        "axis_id": "object_axis_main",
+        "profile_id": "object_profile_main",
+        "crs": {
+          "kind": "epsg",
+          "epsg": 5514,
+          "axis_order": "east_north_up",
+          "horizontal_unit": "m",
+          "vertical_unit": "m",
+          "vertical_datum": "Bpv"
+        },
+        "section": [
+          {"offset_m": -1, "elevation_offset_m": 0},
+          {"offset_m": 1, "elevation_offset_m": 0}
+        ],
+        "sampling_spacing_m": 5,
+        "caps": false,
+        "review_state": "unreviewed"
+      },
+      "provenance": {
+        "source_document_id": "document_situation",
+        "source_document_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "source_job_id": "job_civil_sweep",
+        "source_kind": "automatic",
+        "algorithm_version": "civil-sweep-v1"
+      }
+    }
+  ],
+  "created_at": "2026-08-30T12:00:00Z"
+}

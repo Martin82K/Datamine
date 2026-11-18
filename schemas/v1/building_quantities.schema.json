@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.building-quantities.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "calculator_version",
+    "project_id",
+    "document_id",
+    "model_version_id",
+    "model_revision",
+    "model_content_sha256",
+    "coordinate_space",
+    "tolerance",
+    "units",
+    "rows",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.building-quantities.v1",
+      "type": "string"
+    },
+    "calculator_version": {
+      "const": "building-quantities-v1",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "document_id": {
+      "minLength": 10,
+      "maxLength": 72,
+      "pattern": "^document_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "model_version_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^version_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "model_revision": {
+      "minimum": 0,
+      "maximum": 2147483647,
+      "type": "integer"
+    },
+    "model_content_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "coordinate_space": {
+      "const": "drawing_m",
+      "type": "string"
+    },
+    "tolerance": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "linear_m",
+        "area_m2",
+        "volume_m3"
+      ],
+      "properties": {
+        "linear_m": {
+          "const": 0.000001,
+          "type": "number"
+        },
+        "area_m2": {
+          "const": 0.000001,
+          "type": "number"
+        },
+        "volume_m3": {
+          "const": 0.000001,
+          "type": "number"
+        }
+      }
+    },
+    "units": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "length",
+        "area",
+        "volume"
+      ],
+      "properties": {
+        "length": {
+          "const": "m",
+          "type": "string"
+        },
+        "area": {
+          "const": "m2",
+          "type": "string"
+        },
+        "volume": {
+          "const": "m3",
+          "type": "string"
+        }
+      }
+    },
+    "rows": {
+      "maxItems": 100000,
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "object_id",
+          "object_type",
+          "length_m",
+          "gross_area_m2",
+          "net_area_m2",
+          "volume_m3",
+          "source_algorithm_version"
+        ],
+        "properties": {
+          "object_id": {
+            "minLength": 8,
+            "maxLength": 72,
+            "pattern": "^object_[A-Za-z0-9_-]+$",
+            "type": "string"
+          },
+          "object_type": {
+            "anyOf": [
+              {
+                "const": "building.wall",
+                "type": "string"
+              },
+              {
+                "const": "building.opening",
+                "type": "string"
+              },
+              {
+                "const": "building.floor",
+                "type": "string"
+              }
+            ]
+          },
+          "length_m": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0,
+                "maximum": 10000000,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gross_area_m2": {
+            "minimum": 0,
+            "maximum": 10000000000,
+            "type": "number"
+          },
+          "net_area_m2": {
+            "minimum": 0,
+            "maximum": 10000000000,
+            "type": "number"
+          },
+          "volume_m3": {
+            "minimum": 0,
+            "maximum": 10000000000,
+            "type": "number"
+          },
+          "source_algorithm_version": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          }
+        }
+      }
+    },
+    "summary": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "objects_total",
+        "walls_total",
+        "openings_total",
+        "floors_total",
+        "length_m",
+        "gross_area_m2",
+        "net_area_m2",
+        "volume_m3"
+      ],
+      "properties": {
+        "objects_total": {
+          "minimum": 0,
+          "maximum": 100000,
+          "type": "integer"
+        },
+        "walls_total": {
+          "minimum": 0,
+          "maximum": 100000,
+          "type": "integer"
+        },
+        "openings_total": {
+          "minimum": 0,
+          "maximum": 100000,
+          "type": "integer"
+        },
+        "floors_total": {
+          "minimum": 0,
+          "maximum": 100000,
+          "type": "integer"
+        },
+        "length_m": {
+          "minimum": 0,
+          "maximum": 10000000000,
+          "type": "number"
+        },
+        "gross_area_m2": {
+          "minimum": 0,
+          "maximum": 10000000000,
+          "type": "number"
+        },
+        "net_area_m2": {
+          "minimum": 0,
+          "maximum": 10000000000,
+          "type": "number"
+        },
+        "volume_m3": {
+          "minimum": 0,
+          "maximum": 10000000000,
+          "type": "number"
+        }
+      }
+    }
+  }
+}

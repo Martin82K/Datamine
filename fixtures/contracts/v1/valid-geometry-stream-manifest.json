@@ -1,0 +1,16 @@
+{
+  "schema_version": "datamine.geometry-stream-manifest.v1",
+  "stream_id": "stream_demo",
+  "project_id": "project_demo",
+  "source_version_id": "version_demo",
+  "source_revision": 2,
+  "source_content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "object_id": "object_mesh_demo",
+  "geometry_kind": "indexed_mesh",
+  "coordinate_space": "survey_crs",
+  "vertex_count": 4,
+  "face_count": 2,
+  "chunk_count": 1,
+  "total_payload_bytes": 128,
+  "geometry_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@datamine/design",
+  "version": "0.1.0",
+  "description": "Přenosný design systém Datamine pro produktové a technické aplikace.",
+  "type": "module",
+  "sideEffects": [
+    "*.css",
+    "styles/*.css"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/index.js"
+    },
+    "./styles.css": "./styles/index.css",
+    "./tokens.css": "./styles/tokens.css",
+    "./components.css": "./styles/components.css",
+    "./motion.css": "./styles/motion.css",
+    "./design-map.json": "./design-map.json"
+  },
+  "files": [
+    "README.md",
+    "MIGRATION.md",
+    "design-map.json",
+    "showcase.html",
+    "src",
+    "styles"
+  ],
+  "scripts": {
+    "pack:check": "npm pack --dry-run"
+  },
+  "keywords": [
+    "datamine",
+    "design-system",
+    "css",
+    "tokens"
+  ],
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=18"
+  }
+}

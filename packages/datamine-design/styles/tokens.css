@@ -1,0 +1,152 @@
+/* Datamine design tokens — jediný CSS zdroj pravdy pro přenositelné UI. */
+:where(.dm-theme, [data-datamine-theme]) {
+  color-scheme: dark;
+
+  /* Brand a významové barvy */
+  --dm-color-primary: #607afb;
+  --dm-color-primary-action: #5369dc;
+  --dm-color-primary-hover: #4f63d8;
+  --dm-color-primary-active: #4759c8;
+  --dm-color-orange: #ff8a33;
+  --dm-color-amber: #fbbf24;
+  --dm-color-success: #34d399;
+  --dm-color-danger: #f43f5e;
+  --dm-color-info: #38bdf8;
+  --dm-color-violet: #a78bfa;
+
+  /* Tmavé téma Atelier */
+  --dm-color-bg: #060a12;
+  --dm-color-bg-raised: #0a1019;
+  --dm-color-surface: #0e1521;
+  --dm-color-surface-raised: rgba(16, 23, 36, 0.82);
+  --dm-color-surface-glass: rgba(13, 19, 30, 0.66);
+  --dm-color-control: rgba(0, 0, 0, 0.28);
+  --dm-color-text: #f1f5f9;
+  --dm-color-text-secondary: #cbd5e1;
+  --dm-color-text-muted: #94a3b8;
+  --dm-color-text-subtle: #64748b;
+  --dm-color-border: rgba(255, 255, 255, 0.06);
+  --dm-color-border-strong: rgba(255, 255, 255, 0.11);
+  --dm-color-hover: rgba(255, 255, 255, 0.07);
+  --dm-color-selection: rgba(96, 122, 251, 0.28);
+  --dm-color-overlay: rgba(2, 6, 23, 0.72);
+
+  /* Typografie */
+  --dm-font-sans: "Roboto", Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dm-font-display: "Instrument Serif", Georgia, serif;
+  --dm-font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+  --dm-font-size-2xs: 0.625rem;
+  --dm-font-size-xs: 0.6875rem;
+  --dm-font-size-sm: 0.75rem;
+  --dm-font-size-md: 0.84375rem;
+  --dm-font-size-base: 0.9375rem;
+  --dm-font-size-lg: 1.0625rem;
+  --dm-font-size-xl: 1.5rem;
+  --dm-font-size-2xl: 2.125rem;
+  --dm-line-tight: 1.15;
+  --dm-line-ui: 1.35;
+  --dm-line-body: 1.7;
+  --dm-tracking-tight: -0.02em;
+  --dm-tracking-label: 0.12em;
+
+  /* Rozestupy — 4px základ */
+  --dm-space-0: 0;
+  --dm-space-1: 0.25rem;
+  --dm-space-2: 0.5rem;
+  --dm-space-3: 0.75rem;
+  --dm-space-4: 1rem;
+  --dm-space-5: 1.25rem;
+  --dm-space-6: 1.5rem;
+  --dm-space-8: 2rem;
+  --dm-space-10: 2.5rem;
+  --dm-space-12: 3rem;
+  --dm-space-16: 4rem;
+
+  /* Geometrie */
+  --dm-radius-xs: 0.25rem;
+  --dm-radius-sm: 0.375rem;
+  --dm-radius-md: 0.5rem;
+  --dm-radius-lg: 0.6875rem;
+  --dm-radius-xl: 0.875rem;
+  --dm-radius-2xl: 1.125rem;
+  --dm-radius-pill: 999px;
+
+  /* Stíny a sklo */
+  --dm-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --dm-shadow-md: 0 12px 30px -10px rgba(0, 0, 0, 0.3);
+  --dm-shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.5);
+  --dm-shadow-float: 0 30px 70px -20px rgba(0, 0, 0, 0.85);
+  --dm-shadow-card-hover: 0 24px 50px -24px rgba(0, 0, 0, 0.8);
+  --dm-shadow-focus: 0 0 0 3px rgba(96, 122, 251, 0.2);
+  --dm-glass-background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018));
+  --dm-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --dm-glass-blur: blur(20px) saturate(140%);
+
+  /* Motion */
+  --dm-duration-instant: 120ms;
+  --dm-duration-fast: 180ms;
+  --dm-duration-base: 200ms;
+  --dm-duration-slow: 300ms;
+  --dm-duration-enter: 400ms;
+  --dm-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dm-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout a vrstvy */
+  --dm-container-sm: 40rem;
+  --dm-container-md: 64rem;
+  --dm-container-lg: 70rem;
+  --dm-z-dropdown: 30;
+  --dm-z-sticky: 40;
+  --dm-z-dialog: 60;
+  --dm-z-toast: 80;
+}
+
+:where([data-datamine-theme="light"], .dm-theme--light) {
+  color-scheme: light;
+  --dm-color-bg: #eef2f7;
+  --dm-color-bg-raised: #f7f9fc;
+  --dm-color-surface: #ffffff;
+  --dm-color-surface-raised: rgba(255, 255, 255, 0.92);
+  --dm-color-surface-glass: rgba(255, 255, 255, 0.82);
+  --dm-color-control: rgba(255, 255, 255, 0.78);
+  --dm-color-text: #0f172a;
+  --dm-color-text-secondary: #334155;
+  --dm-color-text-muted: #475569;
+  --dm-color-text-subtle: #64748b;
+  --dm-color-border: rgba(15, 23, 42, 0.1);
+  --dm-color-border-strong: rgba(15, 23, 42, 0.18);
+  --dm-color-hover: rgba(15, 23, 42, 0.06);
+  --dm-color-selection: rgba(96, 122, 251, 0.22);
+  --dm-color-overlay: rgba(238, 242, 247, 0.78);
+  --dm-shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.1);
+  --dm-shadow-md: 0 12px 30px -10px rgba(15, 23, 42, 0.18);
+  --dm-shadow-lg: 0 24px 56px -30px rgba(15, 23, 42, 0.28);
+  --dm-shadow-float: 0 30px 70px -24px rgba(15, 23, 42, 0.34);
+  --dm-shadow-card-hover: 0 24px 50px -24px rgba(15, 23, 42, 0.32);
+  --dm-glass-background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.52));
+  --dm-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+@media (prefers-color-scheme: light) {
+  :where([data-datamine-theme="system"]) {
+    color-scheme: light;
+    --dm-color-bg: #eef2f7;
+    --dm-color-bg-raised: #f7f9fc;
+    --dm-color-surface: #ffffff;
+    --dm-color-surface-raised: rgba(255, 255, 255, 0.92);
+    --dm-color-surface-glass: rgba(255, 255, 255, 0.82);
+    --dm-color-control: rgba(255, 255, 255, 0.78);
+    --dm-color-text: #0f172a;
+    --dm-color-text-secondary: #334155;
+    --dm-color-text-muted: #475569;
+    --dm-color-text-subtle: #64748b;
+    --dm-color-border: rgba(15, 23, 42, 0.1);
+    --dm-color-border-strong: rgba(15, 23, 42, 0.18);
+    --dm-color-hover: rgba(15, 23, 42, 0.06);
+    --dm-color-selection: rgba(96, 122, 251, 0.22);
+    --dm-color-overlay: rgba(238, 242, 247, 0.78);
+    --dm-shadow-card-hover: 0 24px 50px -24px rgba(15, 23, 42, 0.32);
+    --dm-glass-background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.52));
+    --dm-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  }
+}

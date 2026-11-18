@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datamine.geometry-chunk.v1",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schema_version",
+    "stream_id",
+    "project_id",
+    "source_version_id",
+    "source_revision",
+    "source_content_sha256",
+    "object_id",
+    "manifest_sha256",
+    "sequence",
+    "chunk_count",
+    "vertex_start",
+    "face_start",
+    "vertices",
+    "faces",
+    "payload_bytes",
+    "payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "datamine.geometry-chunk.v1",
+      "type": "string"
+    },
+    "stream_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^stream_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "project_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^project_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_version_id": {
+      "minLength": 9,
+      "maxLength": 72,
+      "pattern": "^version_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "source_revision": {
+      "minimum": 0,
+      "maximum": 2147483647,
+      "type": "integer"
+    },
+    "source_content_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "object_id": {
+      "minLength": 8,
+      "maxLength": 72,
+      "pattern": "^object_[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 0,
+      "maximum": 4095,
+      "type": "integer"
+    },
+    "chunk_count": {
+      "minimum": 1,
+      "maximum": 4096,
+      "type": "integer"
+    },
+    "vertex_start": {
+      "minimum": 0,
+      "maximum": 99999,
+      "type": "integer"
+    },
+    "face_start": {
+      "minimum": 0,
+      "maximum": 199999,
+      "type": "integer"
+    },
+    "vertices": {
+      "maxItems": 4096,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": [
+          {
+            "minimum": -100000000,
+            "maximum": 100000000,
+            "type": "number"
+          },
+          {
+            "minimum": -100000000,
+            "maximum": 100000000,
+            "type": "number"
+          },
+          {
+            "minimum": -100000,
+            "maximum": 100000,
+            "type": "number"
+          }
+        ],
+        "additionalItems": false,
+        "minItems": 3,
+        "maxItems": 3
+      }
+    },
+    "faces": {
+      "maxItems": 8192,
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": [
+          {
+            "minimum": 0,
+            "maximum": 99999,
+            "type": "integer"
+          },
+          {
+            "minimum": 0,
+            "maximum": 99999,
+            "type": "integer"
+          },
+          {
+            "minimum": 0,
+            "maximum": 99999,
+            "type": "integer"
+          }
+        ],
+        "additionalItems": false,
+        "minItems": 3,
+        "maxItems": 3
+      }
+    },
+    "payload_bytes": {
+      "minimum": 2,
+      "maximum": 1048576,
+      "type": "integer"
+    },
+    "payload_sha256": {
+      "pattern": "^[a-f0-9]{64}$",
+      "type": "string"
+    }
+  }
+}
