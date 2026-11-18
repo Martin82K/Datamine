@@ -1,9 +1,14 @@
 import { isContract, type StakeoutPointObject } from "@datamine/contracts";
+import { invoke, isTauri } from "@tauri-apps/api/core";
 import { extractStakeoutCsv, isStakeoutCsv } from "./stakeout-csv.ts";
 import type { LocalProjectFile } from "./local-projects";
 import { readableExtractedGroupName, safeExtractedLayerId } from "./extracted-groups.ts";
 export { readableExtractedGroupName, safeExtractedLayerId } from "./extracted-groups.ts";
 
+export const MAX_DESKTOP_PDF_BYTES = 2 * 1024 * 1024;
+export const isStakeoutPdf = (file: LocalProjectFile) =>
+  file.media_type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+export const usesDesktopPdfWorker = () => typeof window !== "undefined" && isTauri();
 const SERVER_PROJECT_ID = "project_local";
 const DOCUMENT_ID = /^document_[A-Za-z0-9_-]{1,63}$/;
 const JOB_ID = /^job_[A-Za-z0-9_-]{1,67}$/;
@@ -36,7 +41,7 @@ interface StakeoutImportPayload {
   readonly document_id: string;
   readonly source_document_sha256: string;
   readonly source_job_id?: string;
-  readonly algorithm_version: "stakeout-pdf-import-v1" | "stakeout-csv-import-v1";
+  readonly algorithm_version: "stakeout-pdf-import-v1" | "stakeout-csv-import-v1" | "stakeout-desktop-pdf-v1";
   readonly points: readonly StakeoutImportPoint[];
 }
 
@@ -69,14 +74,19 @@ const isJobRecord = (value: unknown): value is JobRecord => {
     && (item.error_code === undefined || typeof item.error_code === "string");
 };
 
-const isStakeoutImport = (value: unknown): value is StakeoutImportPayload => {
+const isStakeoutImport = (
+  value: unknown,
+  algorithm: "stakeout-pdf-import-v1" | "stakeout-desktop-pdf-v1",
+): value is StakeoutImportPayload => {
   if (!value || typeof value !== "object") return false;
   const item = value as Partial<StakeoutImportPayload>;
   return item.schema_version === "datamine.stakeout-import.v1"
     && typeof item.document_id === "string" && DOCUMENT_ID.test(item.document_id)
     && typeof item.source_document_sha256 === "string" && SHA256.test(item.source_document_sha256)
-    && typeof item.source_job_id === "string" && JOB_ID.test(item.source_job_id)
-    && item.algorithm_version === "stakeout-pdf-import-v1"
+    && (algorithm === "stakeout-desktop-pdf-v1"
+      ? item.source_job_id === undefined
+      : typeof item.source_job_id === "string" && JOB_ID.test(item.source_job_id))
+    && item.algorithm_version === algorithm
     && Array.isArray(item.points) && item.points.length > 0 && item.points.length <= 10_000
     && item.points.every((point) => point && typeof point === "object"
       && typeof point.code === "string" && point.code.length > 0 && point.code.length <= 200
@@ -152,6 +162,33 @@ async function waitForJob(job: JobRecord, onStatus: (message: string) => void): 
   throw new Error("Extrakce souřadnic překročila časový limit.");
 }
 
+async function extractDesktopPdf(file: LocalProjectFile, blob: Blob): Promise<StakeoutImportPayload> {
+  if (!isStakeoutPdf(file) || blob.size !== file.size || blob.size > MAX_DESKTOP_PDF_BYTES) {
+    throw new Error("Lokální worker přijímá PDF do 2 MiB.");
+  }
+  let result: unknown;
+  try {
+    result = await invoke("extract_stakeout_pdf", await blob.arrayBuffer());
+  } catch (error) {
+    throw new Error(typeof error === "string" ? error : "Spuštění lokálního workeru selhalo.");
+  }
+  if (!result || typeof result !== "object" || !("points" in result)
+    || !("source_document_sha256" in result) || result.source_document_sha256 !== file.sha256) {
+    throw new Error("Výsledek lokálního workeru neodpovídá zdrojovému PDF.");
+  }
+  const payload = {
+    schema_version: "datamine.stakeout-import.v1",
+    document_id: `document_pdf_${file.sha256.slice(0, 32)}`,
+    source_document_sha256: result.source_document_sha256,
+    algorithm_version: "stakeout-desktop-pdf-v1",
+    points: result.points,
+  };
+  if (!isStakeoutImport(payload, "stakeout-desktop-pdf-v1")) {
+    throw new Error("Lokální worker vrátil neplatné souřadnice.");
+  }
+  return payload;
+}
+
 export async function extractStakeoutProposal(
   file: LocalProjectFile,
   blob: Blob,
@@ -160,6 +197,10 @@ export async function extractStakeoutProposal(
   if (isStakeoutCsv(file)) {
     onStatus("Načítám souřadnice a výšky z CSV…");
     return extractStakeoutCsv(file, blob);
+  }
+  if (usesDesktopPdfWorker()) {
+    onStatus("Vytěžuji souřadnice z PDF místně…");
+    return extractDesktopPdf(file, blob);
   }
   onStatus("Předávám PDF do karantény…");
   const document = await waitForDocument(await uploadDocument(file, blob), onStatus);
@@ -172,7 +213,7 @@ export async function extractStakeoutProposal(
   const contentResponse = await fetch(`/v2/projects/${SERVER_PROJECT_ID}/artifacts/${artifact.id}/content`, { cache: "no-store" });
   if (!contentResponse.ok) throw new Error(await errorMessage(contentResponse, "Obsah extrakce nelze načíst."));
   const payload: unknown = await contentResponse.json();
-  if (!isStakeoutImport(payload) || payload.document_id !== document.id || payload.source_document_sha256 !== file.sha256 || payload.source_job_id !== job.id) {
+  if (!isStakeoutImport(payload, "stakeout-pdf-import-v1") || payload.document_id !== document.id || payload.source_document_sha256 !== file.sha256 || payload.source_job_id !== job.id) {
     throw new Error("Výsledek extrakce není svázaný se zdrojovým PDF.");
   }
   return payload;
@@ -218,7 +259,7 @@ export function stakeoutObjectsFromProposal(
         source_document_id: payload.document_id,
         source_document_sha256: payload.source_document_sha256,
         ...(payload.source_job_id ? { source_job_id: payload.source_job_id } : {}),
-        source_kind: payload.algorithm_version === "stakeout-csv-import-v1" ? "imported" : "automatic",
+        source_kind: payload.source_job_id ? "automatic" : "imported",
         algorithm_version: payload.algorithm_version,
       },
     };

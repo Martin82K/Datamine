@@ -44,12 +44,25 @@ jobs:
         run: npm ci
       - name: Install pinned Rust toolchain
         run: rustup toolchain install 1.93.0 --profile minimal
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: worker/requirements.lock
+      - name: Install Python worker dependencies
+        run: python -m pip install --require-hashes -r worker/requirements.lock
+      - name: Test Python worker
+        run: python -m unittest discover -s worker
+      - name: Package Python worker
+        run: python scripts/build_stakeout_worker.py
       - name: Build desktop installer
         uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1
         with:
           args: --target ${{ matrix.target }} --bundles ${{ matrix.bundle }} --ci --no-sign -- --locked
       - name: Test V2 packages and editor
         run: npm run v2:test:compiled
+      - name: Native PDF-to-CSV smoke
+        run: python scripts/run_desktop_smoke.py ${{ matrix.target }}
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: datamine-${{ matrix.target }}
